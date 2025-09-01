@@ -8,6 +8,26 @@ import (
 
 type UUID = guuid.UUID
 
+const (
+	EventTypeMessageNew        EventTypeSchema = "message_new"
+	EventTypeMessageUpdated    EventTypeSchema = "message_updated"
+	EventTypeMessageDeleted    EventTypeSchema = "message_deleted"
+	EventTypeMessageRestore    EventTypeSchema = "message_restore"
+	EventTypeChatCrated        EventTypeSchema = "chat_created"
+	EventTypeChatUpdated       EventTypeSchema = "chat_updated"
+	EventTypeChatsDeleted      EventTypeSchema = "chats_deleted"
+	EventTypeDialogClosed      EventTypeSchema = "dialog_closed"
+	EventTypeDialogOpened      EventTypeSchema = "dialog_opened"
+	EventTypeDialogAssign      EventTypeSchema = "dialog_assign"
+	EventTypeUserOnlineUpdated EventTypeSchema = "user_online_updated"
+	EventTypeUserJoinedChat    EventTypeSchema = "user_joined_chat"
+	EventTypeUserLeftChat      EventTypeSchema = "user_left_chat"
+	EventTypeUserUpdated       EventTypeSchema = "user_updated"
+	EventTypeCustomerUpdated   EventTypeSchema = "customer_updated"
+	EventTypeBotUpdated        EventTypeSchema = "bot_updated"
+	EventTypeChannelUpdated    EventTypeSchema = "channel_updated"
+)
+
 func (e *EventSchema) UnmarshalJSON(data []byte) error {
 	type EventSchemaRaw struct {
 		Data json.RawMessage `json:"data"`
@@ -23,91 +43,91 @@ func (e *EventSchema) UnmarshalJSON(data []byte) error {
 	e.Meta = raw.Meta
 
 	switch e.Type {
-	case "message_new":
+	case EventTypeMessageNew:
 		fallthrough
-	case "message_updated":
+	case EventTypeMessageUpdated:
 		fallthrough
-	case "message_deleted":
+	case EventTypeMessageDeleted:
 		fallthrough
-	case "message_restore":
+	case EventTypeMessageRestore:
 		var body MessageDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
 
-	case "chat_created":
+	case EventTypeChatCrated:
 		fallthrough
-	case "chat_updated":
+	case EventTypeChatUpdated:
 		var body ChatDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
 
-	case "chats_deleted":
+	case EventTypeChatsDeleted:
 		var body ChatsDeletedDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
 
-	case "dialog_closed":
+	case EventTypeDialogClosed:
 		fallthrough
-	case "dialog_opened":
+	case EventTypeDialogOpened:
 		var body DialogDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
 
-	case "dialog_assign":
+	case EventTypeDialogAssign:
 		var body DialogAssignDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
 
-	case "user_online_updated":
+	case EventTypeUserOnlineUpdated:
 		var body UserOnlineUpdatedDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
-	case "user_joined_chat":
+	case EventTypeUserJoinedChat:
 		var body UserJoinedChatDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
-	case "user_left_chat":
+	case EventTypeUserLeftChat:
 		var body UserLeftChatDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
-	case "user_updated":
+	case EventTypeUserUpdated:
 		var body UserUpdatedDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
 
-	case "customer_updated":
+	case EventTypeCustomerUpdated:
 		var body CustomerUpdatedDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
 
-	case "bot_updated":
+	case EventTypeBotUpdated:
 		var body BotUpdatedDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
 		e.Data = body
 
-	case "channel_updated":
+	case EventTypeChannelUpdated:
 		var body ChannelUpdatedDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
