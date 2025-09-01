@@ -12,7 +12,7 @@ const (
 	EventTypeMessageNew        EventTypeSchema = "message_new"
 	EventTypeMessageUpdated    EventTypeSchema = "message_updated"
 	EventTypeMessageDeleted    EventTypeSchema = "message_deleted"
-	EventTypeMessageRestore    EventTypeSchema = "message_restore"
+	EventTypeMessageRestored   EventTypeSchema = "message_restored"
 	EventTypeChatCrated        EventTypeSchema = "chat_created"
 	EventTypeChatUpdated       EventTypeSchema = "chat_updated"
 	EventTypeChatsDeleted      EventTypeSchema = "chats_deleted"
@@ -26,6 +26,168 @@ const (
 	EventTypeCustomerUpdated   EventTypeSchema = "customer_updated"
 	EventTypeBotUpdated        EventTypeSchema = "bot_updated"
 	EventTypeChannelUpdated    EventTypeSchema = "channel_updated"
+)
+
+const (
+	WaitingLevelWarning WaitingLevelSchema = "warning"
+	WaitingLevelDanger  WaitingLevelSchema = "danger"
+	WaitingLevelNone    WaitingLevelSchema = "none"
+)
+
+const (
+	MessageTypeText    MessageTypeSchema = "text"
+	MessageTypeSystem  MessageTypeSchema = "system"
+	MessageTypeCommand MessageTypeSchema = "command"
+	MessageTypeOrder   MessageTypeSchema = "order"
+	MessageTypeProduct MessageTypeSchema = "product"
+	MessageTypeFile    MessageTypeSchema = "file"
+	MessageTypeImage   MessageTypeSchema = "image"
+	MessageTypeAudio   MessageTypeSchema = "audio"
+)
+
+const (
+	MessageScopeUndefined MessageScopeSchema = "undefined"
+	MessageScopePublic    MessageScopeSchema = "public"
+	MessageScopePrivate   MessageScopeSchema = "private"
+)
+
+const (
+	MessageStatusUndefined MessageStatusSchema = "undefined"
+	MessageStatusReceived  MessageStatusSchema = "received"
+	MessageStatusSending   MessageStatusSchema = "sending"
+	MessageStatusSent      MessageStatusSchema = "sent"
+	MessageStatusFailed    MessageStatusSchema = "failed"
+	MessageStatusSeen      MessageStatusSchema = "seen"
+)
+
+const (
+	ResponsibleTypeUser ResponsibleTypeSchema = "user"
+	ResponsibleTypeBot  ResponsibleTypeSchema = "bot"
+)
+
+const (
+	UserTypeUser     UserTypeSchema = "user"
+	UserTypeBot      UserTypeSchema = "bot"
+	UserTypeCustomer UserTypeSchema = "customer"
+	UserTypeChannel  UserTypeSchema = "channel"
+)
+
+const (
+	MessageOrderStatusCodeNew        MessageOrderStatusCodeSchema = "new"
+	MessageOrderStatusCodeApproval   MessageOrderStatusCodeSchema = "approval"
+	MessageOrderStatusCodeAssembling MessageOrderStatusCodeSchema = "assembling"
+	MessageOrderStatusCodeDelivery   MessageOrderStatusCodeSchema = "delivery"
+	MessageOrderStatusCodeComplete   MessageOrderStatusCodeSchema = "complete"
+	MessageOrderStatusCodeCancel     MessageOrderStatusCodeSchema = "cancel"
+)
+
+const (
+	MessageFileKindNone  MessageFileKindSchema = "none"
+	MessageFileKindImage MessageFileKindSchema = "image"
+	MessageFileKindVideo MessageFileKindSchema = "video"
+	MessageFileKindFile  MessageFileKindSchema = "file"
+	MessageFileKindAudio MessageFileKindSchema = "audio"
+)
+
+const (
+	MessageErrorCodeUnknown           MessageErrorCodeSchema = "unknown"
+	MessageErrorCodeNetworkError      MessageErrorCodeSchema = "network_error"
+	MessageErrorCodeMalformedResponse MessageErrorCodeSchema = "malformed_response"
+	MessageErrorCodeAsyncSendTimeout  MessageErrorCodeSchema = "async_send_timeout"
+	MessageErrorCodeGeneral           MessageErrorCodeSchema = "general"
+	MessageErrorCodeCustomerNotExists MessageErrorCodeSchema = "customer_not_exists"
+	MessageErrorCodeReplyTimedOut     MessageErrorCodeSchema = "reply_timed_out"
+	MessageErrorCodeSpamSuspicion     MessageErrorCodeSchema = "spam_suspicion"
+	MessageErrorCodeAccessRestricted  MessageErrorCodeSchema = "access_restricted"
+)
+
+const (
+	MessageActionDialogOpened      MessageActionSchema = "dialog_opened"
+	MessageActionDialogClosed      MessageActionSchema = "dialog_closed"
+	MessageActionUserJoined        MessageActionSchema = "user_joined"
+	MessageActionUserLeft          MessageActionSchema = "user_left"
+	MessageActionDialogAssign      MessageActionSchema = "dialog_assign"
+	MessageActionCustomerBlocked   MessageActionSchema = "customer_blocked"
+	MessageActionCustomerUnblocked MessageActionSchema = "customer_unblocked"
+	MessageActionDialogUnassign    MessageActionSchema = "dialog_unassign"
+)
+
+const (
+	SuggestionTypeText  SuggestionTypeSchema = "text"
+	SuggestionTypeEmail SuggestionTypeSchema = "email"
+	SuggestionTypePhone SuggestionTypeSchema = "phone"
+	SuggestionTypeURL   SuggestionTypeSchema = "url"
+)
+
+const (
+	ChannelTypeTelegram      ChannelTypeSchema = "telegram"
+	ChannelTypeFbmessenger   ChannelTypeSchema = "fbmessenger"
+	ChannelTypeViber         ChannelTypeSchema = "viber"
+	ChannelTypeWhatsapp      ChannelTypeSchema = "whatsapp"
+	ChannelTypeSkype         ChannelTypeSchema = "skype"
+	ChannelTypeVk            ChannelTypeSchema = "vk"
+	ChannelTypeInstagram     ChannelTypeSchema = "instagram"
+	ChannelTypeConsultant    ChannelTypeSchema = "consultant"
+	ChannelTypeYandexChat    ChannelTypeSchema = "yandex_chat"
+	ChannelTypeOdnoklassniki ChannelTypeSchema = "odnoklassniki"
+	ChannelTypeMax           ChannelTypeSchema = "max"
+	ChannelTypeOzon          ChannelTypeSchema = "ozon"
+	ChannelTypeWildberries   ChannelTypeSchema = "wildberries"
+	ChannelTypeYandexMarket  ChannelTypeSchema = "yandex_market"
+	ChannelTypeMegaMarket    ChannelTypeSchema = "mega_market"
+	ChannelTypeAvito         ChannelTypeSchema = "avito"
+	ChannelTypeDrom          ChannelTypeSchema = "drom"
+	ChannelTypeYoula         ChannelTypeSchema = "youla"
+	ChannelTypeCustom        ChannelTypeSchema = "custom"
+)
+
+const (
+	ChannelFeatureNone    ChannelFeatureSchema = "none"
+	ChannelFeatureReceive ChannelFeatureSchema = "receive"
+	ChannelFeatureSend    ChannelFeatureSchema = "send"
+	ChannelFeatureBoth    ChannelFeatureSchema = "both"
+)
+
+const (
+	CustomerExternalIdAny   CustomerExternalIdSchema = "any"
+	CustomerExternalIdPhone CustomerExternalIdSchema = "phone"
+)
+
+const (
+	SendingPolicyAfterReplyTimeoutNo       SendingPolicyAfterReplyTimeoutSchema = "no"
+	SendingPolicyAfterReplyTimeoutTemplate SendingPolicyAfterReplyTimeoutSchema = "template"
+)
+
+const (
+	SendingPolicyNewCustomerNo       SendingPolicyNewCustomerSchema = "no"
+	SendingPolicyNewCustomerTemplate SendingPolicyNewCustomerSchema = "template"
+	SendingPolicyNewCustomerText     SendingPolicyNewCustomerSchema = "text"
+)
+
+const (
+	SendingPolicyOutgoingAllowed    SendingPolicyOutgoingSchema = "allowed"
+	SendingPolicyOutgoingRestricted SendingPolicyOutgoingSchema = "restricted"
+)
+
+const (
+	WAChannelQualityHigh   WAChannelQualitySchema = "high"
+	WAChannelQualityMedium WAChannelQualitySchema = "medium"
+	WAChannelQualityLow    WAChannelQualitySchema = "low"
+)
+
+const (
+	WAChannelStatusConnected  WAChannelStatusSchema = "connected"
+	WAChannelStatusFlagged    WAChannelStatusSchema = "flagged"
+	WAChannelStatusOffline    WAChannelStatusSchema = "offline"
+	WAChannelStatusPending    WAChannelStatusSchema = "pending"
+	WAChannelStatusRestricted WAChannelStatusSchema = "restricted"
+)
+
+const (
+	MemberStateActive    MemberStateSchema = "active"
+	MemberStateKicked    MemberStateSchema = "kicked"
+	MemberStateLeaved    MemberStateSchema = "leaved"
+	MemberStateUndefined MemberStateSchema = "undefined"
 )
 
 func (e *EventSchema) UnmarshalJSON(data []byte) error {
@@ -49,7 +211,7 @@ func (e *EventSchema) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case EventTypeMessageDeleted:
 		fallthrough
-	case EventTypeMessageRestore:
+	case EventTypeMessageRestored:
 		var body MessageDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
