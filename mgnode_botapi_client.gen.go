@@ -2511,6 +2511,9 @@ type LimitQuery = int
 // MessageIdPath defines model for MessageIdPath.
 type MessageIdPath = int64
 
+// SelfQuery Boolean type
+type SelfQuery = Boolean
+
 // SinceID defines model for SinceIDQuery.
 type SinceID = int64
 
@@ -2708,6 +2711,9 @@ type UploadFileByUrlRequest struct {
 type ListBotsParams struct {
 	// ID Identifier of the requested object
 	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+
+	// Self Filter to include only the current bot
+	Self *SelfQuery `form:"self,omitempty" json:"self,omitempty"`
 
 	// Active Filters bots by activity status
 	Active *BotActiveQuery `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
@@ -3838,6 +3844,18 @@ func NewListBotsRequest(server string, params *ListBotsParams) (*http.Request, e
 		queryValues := queryURL.Query()
 
 		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "self", runtime.ParamLocationQuery, params.Self); err != nil {
 			return nil, err
 		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 			return nil, err
