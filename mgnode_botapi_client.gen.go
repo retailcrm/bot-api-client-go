@@ -2289,11 +2289,11 @@ type SendMessageRequestBody struct {
 	QuoteMessageId int64 `json:"quote_message_id,omitempty"`
 
 	// Scope Scope of the message (e.g., user, system)
-	Scope                string                       `binding:"required" json:"scope"`
+	Scope                MessageScope                 `binding:"required" json:"scope"`
 	TransportAttachments *MessageTransportAttachments `json:"transport_attachments"`
 
 	// Type Type of the message (e.g. text, file, order, product)
-	Type *string `json:"type,omitempty"`
+	Type *MessageType `json:"type,omitempty"`
 }
 
 // SendingPolicy Message sending policy
@@ -2586,7 +2586,7 @@ type EmptyResponse = map[string]interface{}
 // ErrorResponse defines model for ErrorResponse.
 type ErrorResponse struct {
 	// Errors List of errors
-	Errors *[]string `json:"errors,omitempty"`
+	Errors []string `json:"errors,omitempty"`
 }
 
 // FullFileResponse Uploaded file metadata with a temporary access URL
