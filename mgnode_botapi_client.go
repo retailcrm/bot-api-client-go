@@ -1,17 +1,23 @@
 package bot_api_client
 
 import (
-	"context"
 	"errors"
-	"net/http"
 )
 
-func WithBotToken(token string) ClientOption {
-	return WithRequestEditorFn(func(_ context.Context, req *http.Request) error {
-		req.Header.Set("X-Bot-Token", token)
+type Err interface {
+	Error() error
+}
 
-		return nil
-	})
+func ExtractError(resp Err, err error) error {
+	if err != nil {
+		return err
+	}
+
+	if resp != nil && resp.Error() != nil {
+		return resp.Error()
+	}
+
+	return nil
 }
 
 func (r ListBotsResp) Error() error {

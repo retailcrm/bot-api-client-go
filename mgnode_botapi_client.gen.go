@@ -2723,19 +2723,19 @@ type ListBotsParams struct {
 	Role BotRoleQuery `binding:"omitempty,enum-valid" form:"role,omitempty" json:"role,omitempty"`
 
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 }
 
 // ListChannelsParams defines parameters for ListChannels.
@@ -2750,19 +2750,19 @@ type ListChannelsParams struct {
 	Active *ChannelActiveQuery `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
 
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 }
 
 // ListChatsParams defines parameters for ListChats.
@@ -2771,19 +2771,19 @@ type ListChatsParams struct {
 	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// ChannelID Filter by channel ID
 	ChannelID *int `binding:"omitempty,min=1" form:"channel_id,omitempty" json:"channel_id,omitempty"`
@@ -2816,19 +2816,19 @@ type ListCustomersParams struct {
 	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// ChannelID Channel ID
 	ChannelID int `binding:"omitempty,min=1" form:"channel_id,omitempty" json:"channel_id,omitempty"`
@@ -2846,19 +2846,19 @@ type ListDialogsParams struct {
 	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// ChatID Chat ID
 	ChatID int `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
@@ -2935,19 +2935,19 @@ type ListMembersParams struct {
 	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// ChatID Filter by chat identifier
 	ChatID int `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
@@ -2965,19 +2965,19 @@ type ListMembersParamsState string
 // ListMessagesParams defines parameters for ListMessages.
 type ListMessagesParams struct {
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// ID Filter by a list of message IDs
 	ID []int64 `binding:"omitempty,dive,min=1" form:"id,omitempty" json:"id,omitempty"`
@@ -3049,19 +3049,19 @@ type ListCommandsParams struct {
 	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// Name Filter commands by name
 	Name string `binding:"omitempty,max=32,command_name" form:"name,omitempty" json:"name,omitempty"`
@@ -3090,19 +3090,19 @@ type ListUsersParams struct {
 	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
-	Since SinceQuery `form:"since,omitempty" json:"since,omitempty"`
+	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
 
 	// Until Upper limit of the date of the last object update
-	Until UntilQuery `form:"until,omitempty" json:"until,omitempty"`
+	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// SinceID Lower bound for object identifiers
-	SinceID SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
+	SinceID *SinceID `binding:"omitempty,min=1" form:"since_id,omitempty" json:"since_id,omitempty"`
 
 	// UntilID Upper bound for object identifiers
-	UntilID UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
+	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
-	Limit LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
+	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Active Filter users by activity status
 	Active *Boolean `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
@@ -3900,64 +3900,84 @@ func NewListBotsRequest(server string, params *ListBotsParams) (*http.Request, e
 			}
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4033,64 +4053,84 @@ func NewListChannelsRequest(server string, params *ListChannelsParams) (*http.Re
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4138,64 +4178,84 @@ func NewListChatsRequest(server string, params *ListChatsParams) (*http.Request,
 			}
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.ChannelID != nil {
@@ -4370,64 +4430,84 @@ func NewListCustomersRequest(server string, params *ListCustomersParams) (*http.
 			}
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "channel_id", runtime.ParamLocationQuery, params.ChannelID); err != nil {
@@ -4515,64 +4595,84 @@ func NewListDialogsRequest(server string, params *ListDialogsParams) (*http.Requ
 			}
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "chat_id", runtime.ParamLocationQuery, params.ChatID); err != nil {
@@ -5063,64 +5163,84 @@ func NewListMembersRequest(server string, params *ListMembersParams) (*http.Requ
 			}
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "chat_id", runtime.ParamLocationQuery, params.ChatID); err != nil {
@@ -5192,64 +5312,84 @@ func NewListMessagesRequest(server string, params *ListMessagesParams) (*http.Re
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
@@ -5566,64 +5706,84 @@ func NewListCommandsRequest(server string, params *ListCommandsParams) (*http.Re
 			}
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "name", runtime.ParamLocationQuery, params.Name); err != nil {
@@ -5804,64 +5964,84 @@ func NewListUsersRequest(server string, params *ListUsersParams) (*http.Request,
 			}
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, params.Since); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Since != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since", runtime.ParamLocationQuery, *params.Since); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, params.Until); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Until != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until", runtime.ParamLocationQuery, *params.Until); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, params.SinceID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.SinceID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "since_id", runtime.ParamLocationQuery, *params.SinceID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, params.UntilID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UntilID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "until_id", runtime.ParamLocationQuery, *params.UntilID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, params.Limit); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "limit", runtime.ParamLocationQuery, *params.Limit); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Active != nil {
