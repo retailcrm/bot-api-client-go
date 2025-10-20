@@ -2276,6 +2276,9 @@ type SendMessageRequestBody struct {
 		ID openapi_types.UUID `json:"id"`
 	} `json:"items,omitempty"`
 
+	// MassCommunication Marks the message as part of a mass mailing. A message sent with this flag does not open a dialog in the chat and does not update the chat’s last_activity. Chats initiated by such messages, as well as the WebSocket events related to them, are returned only when include_mass_communication is explicitly enabled (use the include_mass_communication query parameter for REST lists and the include_mass_communication option for WebSocket connections)
+	MassCommunication *bool `json:"mass_communication,omitempty"`
+
 	// Note Note or description for the file (required for file, audio and image messages)
 	Note *string `json:"note,omitempty"`
 
