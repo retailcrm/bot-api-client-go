@@ -1125,6 +1125,78 @@ func (v *WAChannelStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Defines values for MemberStateQuery.
+const (
+	MemberStateQueryActive MemberStateQuery = "active"
+	MemberStateQueryKicked MemberStateQuery = "kicked"
+	MemberStateQueryLeaved MemberStateQuery = "leaved"
+)
+
+// EnumValues returns all valid values for MemberStateQuery.
+func (MemberStateQuery) EnumValues() []string {
+	return []string{
+		string(MemberStateQueryActive),
+		string(MemberStateQueryKicked),
+		string(MemberStateQueryLeaved),
+	}
+}
+
+// Validate validates the value of MemberStateQuery.
+func (v MemberStateQuery) ValidateEnum() error {
+	for _, value := range v.EnumValues() {
+		if string(v) == value {
+			return nil
+		}
+	}
+	return fmt.Errorf("invalid value for MemberStateQuery: %v", v)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for MemberStateQuery.
+func (v *MemberStateQuery) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return &json.UnmarshalTypeError{Value: err.Error()}
+	}
+
+	*v = MemberStateQuery(s)
+	return nil
+}
+
+// Defines values for MessageScopeQuery.
+const (
+	MessageScopeQueryPrivate MessageScopeQuery = "private"
+	MessageScopeQueryPublic  MessageScopeQuery = "public"
+)
+
+// EnumValues returns all valid values for MessageScopeQuery.
+func (MessageScopeQuery) EnumValues() []string {
+	return []string{
+		string(MessageScopeQueryPrivate),
+		string(MessageScopeQueryPublic),
+	}
+}
+
+// Validate validates the value of MessageScopeQuery.
+func (v MessageScopeQuery) ValidateEnum() error {
+	for _, value := range v.EnumValues() {
+		if string(v) == value {
+			return nil
+		}
+	}
+	return fmt.Errorf("invalid value for MessageScopeQuery: %v", v)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for MessageScopeQuery.
+func (v *MessageScopeQuery) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return &json.UnmarshalTypeError{Value: err.Error()}
+	}
+
+	*v = MessageScopeQuery(s)
+	return nil
+}
+
 // Defines values for ListMembersParamsState.
 const (
 	ListMembersParamsStateActive ListMembersParamsState = "active"
@@ -2481,8 +2553,14 @@ type WAChannelQuality string
 // WAChannelStatus WhatsApp channel status
 type WAChannelStatus string
 
+// AssignQuery Boolean type
+type AssignQuery = Boolean
+
 // BotActiveQuery Boolean type
 type BotActiveQuery = Boolean
+
+// BotID defines model for BotIDQuery.
+type BotID = int
 
 // BotRoleQuery defines model for BotRoleQuery.
 type BotRoleQuery = []Role
@@ -2490,8 +2568,17 @@ type BotRoleQuery = []Role
 // ChannelActiveQuery Boolean type
 type ChannelActiveQuery = Boolean
 
+// ChannelID defines model for ChannelIDQuery.
+type ChannelID = int
+
 // ChannelTypeQuery defines model for ChannelTypeQuery.
 type ChannelTypeQuery = []ChannelType
+
+// ChannelTypeSingleQuery Type of channel used for communication
+type ChannelTypeSingleQuery = ChannelType
+
+// ChatID defines model for ChatIDQuery.
+type ChatID = int
 
 // ChatIdPath defines model for ChatIdPath.
 type ChatIdPath = int64
@@ -2499,8 +2586,26 @@ type ChatIdPath = int64
 // CommandNamePath defines model for CommandNamePath.
 type CommandNamePath = string
 
+// CommandNameQuery defines model for CommandNameQuery.
+type CommandNameQuery = string
+
+// CustomerExternalID defines model for CustomerExternalIDQuery.
+type CustomerExternalID = string
+
+// CustomerID defines model for CustomerIDQuery.
+type CustomerID = int
+
+// DialogActiveQuery Boolean type
+type DialogActiveQuery = Boolean
+
+// DialogID defines model for DialogIDQuery.
+type DialogID = int64
+
 // DialogIdPath defines model for DialogIdPath.
 type DialogIdPath = int64
+
+// ExternalID defines model for ExternalIDQuery.
+type ExternalID = string
 
 // FileIdPath defines model for FileIdPath.
 type FileIdPath = openapi_types.UUID
@@ -2508,11 +2613,26 @@ type FileIdPath = openapi_types.UUID
 // ID defines model for IDQuery.
 type ID = int
 
+// IncludeMassCommunicationQuery Boolean type
+type IncludeMassCommunicationQuery = Boolean
+
 // LimitQuery defines model for LimitQuery.
 type LimitQuery = int
 
+// MemberStateQuery defines model for MemberStateQuery.
+type MemberStateQuery string
+
+// MessageID defines model for MessageIDArrayQuery.
+type MessageID = []int64
+
 // MessageIdPath defines model for MessageIdPath.
 type MessageIdPath = int64
+
+// MessageScopeQuery defines model for MessageScopeQuery.
+type MessageScopeQuery string
+
+// MessageTypeQuery Type of message
+type MessageTypeQuery = MessageType
 
 // SelfQuery Boolean type
 type SelfQuery = Boolean
@@ -2528,6 +2648,21 @@ type UntilID = int64
 
 // UntilQuery defines model for UntilQuery.
 type UntilQuery = time.Time
+
+// UserActiveQuery Boolean type
+type UserActiveQuery = Boolean
+
+// UserID defines model for UserIDQuery.
+type UserID = int
+
+// UserOnlineQuery Boolean type
+type UserOnlineQuery = Boolean
+
+// WSEventsQuery defines model for WSEventsQuery.
+type WSEventsQuery = string
+
+// WSOptionsQuery defines model for WSOptionsQuery.
+type WSOptionsQuery = string
 
 // BotsListResponse defines model for BotsListResponse.
 type BotsListResponse = []Bot
@@ -2714,7 +2849,7 @@ type UploadFileByUrlRequest struct {
 // ListBotsParams defines parameters for ListBots.
 type ListBotsParams struct {
 	// ID Unique identifier of the object
-	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+	ID *ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Self Filter to include only the current bot
 	Self *SelfQuery `form:"self,omitempty" json:"self,omitempty"`
@@ -2723,7 +2858,7 @@ type ListBotsParams struct {
 	Active *BotActiveQuery `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
 
 	// Role Filters bots by one or more assigned roles
-	Role BotRoleQuery `binding:"omitempty,enum-valid" form:"role,omitempty" json:"role,omitempty"`
+	Role *BotRoleQuery `binding:"omitempty,enum-valid" form:"role,omitempty" json:"role,omitempty"`
 
 	// Since Lower limit of the date of the last object update
 	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
@@ -2744,10 +2879,10 @@ type ListBotsParams struct {
 // ListChannelsParams defines parameters for ListChannels.
 type ListChannelsParams struct {
 	// ID Unique identifier of the object
-	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+	ID *ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Types Filters channels by one or more specified types
-	Types ChannelTypeQuery `binding:"omitempty,enum-valid" form:"types,omitempty" json:"types,omitempty"`
+	Types *ChannelTypeQuery `binding:"omitempty,enum-valid" form:"types,omitempty" json:"types,omitempty"`
 
 	// Active Filters channels by activity status
 	Active *ChannelActiveQuery `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
@@ -2771,7 +2906,7 @@ type ListChannelsParams struct {
 // ListChatsParams defines parameters for ListChats.
 type ListChatsParams struct {
 	// ID Unique identifier of the object
-	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+	ID *ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
 	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
@@ -2789,19 +2924,19 @@ type ListChatsParams struct {
 	UntilID *UntilID `binding:"omitempty,min=1" form:"until_id,omitempty" json:"until_id,omitempty"`
 
 	// ChannelID Filter by channel ID
-	ChannelID *int `binding:"omitempty,min=1" form:"channel_id,omitempty" json:"channel_id,omitempty"`
+	ChannelID *ChannelID `binding:"omitempty,min=1" form:"channel_id,omitempty" json:"channel_id,omitempty"`
 
 	// ChannelType Filter by channel type
-	ChannelType *ChannelType `binding:"omitempty,enum-valid" form:"channel_type,omitempty" json:"channel_type,omitempty"`
+	ChannelType *ChannelTypeSingleQuery `binding:"omitempty,enum-valid" form:"channel_type,omitempty" json:"channel_type,omitempty"`
 
 	// CustomerID Filter by customer ID
-	CustomerID *int `binding:"omitempty,min=1" form:"customer_id,omitempty" json:"customer_id,omitempty"`
+	CustomerID *CustomerID `binding:"omitempty,min=1" form:"customer_id,omitempty" json:"customer_id,omitempty"`
 
 	// CustomerExternalID Filter by external customer ID
-	CustomerExternalID *string `binding:"omitempty,min=1" form:"customer_external_id,omitempty" json:"customer_external_id,omitempty"`
+	CustomerExternalID *CustomerExternalID `binding:"omitempty,min=1" form:"customer_external_id,omitempty" json:"customer_external_id,omitempty"`
 
-	// IncludeMassCommunication Whether to include mass communication chats
-	IncludeMassCommunication *Boolean `binding:"omitempty,enum-valid" form:"include_mass_communication,omitempty" json:"include_mass_communication,omitempty"`
+	// IncludeMassCommunication Whether to include mass communication chats/messages
+	IncludeMassCommunication *IncludeMassCommunicationQuery `binding:"omitempty,enum-valid" form:"include_mass_communication,omitempty" json:"include_mass_communication,omitempty"`
 }
 
 // CreateDialogJSONBody defines parameters for CreateDialog.
@@ -2816,7 +2951,7 @@ type CreateDialogJSONBody struct {
 // ListCustomersParams defines parameters for ListCustomers.
 type ListCustomersParams struct {
 	// ID Unique identifier of the object
-	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+	ID *ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
 	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
@@ -2833,20 +2968,20 @@ type ListCustomersParams struct {
 	// Limit The number of elements in the response. Default value is 100
 	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
-	// ChannelID Channel ID
-	ChannelID int `binding:"omitempty,min=1" form:"channel_id,omitempty" json:"channel_id,omitempty"`
+	// ChannelID Filter by channel ID
+	ChannelID *ChannelID `binding:"omitempty,min=1" form:"channel_id,omitempty" json:"channel_id,omitempty"`
 
-	// ChannelType Channel type
-	ChannelType *ChannelType `binding:"omitempty,enum-valid" form:"channel_type,omitempty" json:"channel_type,omitempty"`
+	// ChannelType Filter by channel type
+	ChannelType *ChannelTypeSingleQuery `binding:"omitempty,enum-valid" form:"channel_type,omitempty" json:"channel_type,omitempty"`
 
-	// ExternalID External ID
-	ExternalID string `form:"external_id,omitempty" json:"external_id,omitempty"`
+	// ExternalID Filter by external identifier
+	ExternalID *ExternalID `form:"external_id,omitempty" json:"external_id,omitempty"`
 }
 
 // ListDialogsParams defines parameters for ListDialogs.
 type ListDialogsParams struct {
 	// ID Unique identifier of the object
-	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+	ID *ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
 	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
@@ -2863,23 +2998,23 @@ type ListDialogsParams struct {
 	// Limit The number of elements in the response. Default value is 100
 	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
-	// ChatID Chat ID
-	ChatID int `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
+	// ChatID Filter by chat identifier
+	ChatID *ChatID `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
 
-	// UserID Unique identifier of the user in chats
-	UserID int `binding:"omitempty,min=1" form:"user_id,omitempty" json:"user_id,omitempty"`
+	// UserID Filter by user ID
+	UserID *UserID `binding:"omitempty,min=1" form:"user_id,omitempty" json:"user_id,omitempty"`
 
-	// BotID Bot ID
-	BotID int `binding:"omitempty,min=1" form:"bot_id,omitempty" json:"bot_id,omitempty"`
+	// BotID Filter by bot ID
+	BotID *BotID `binding:"omitempty,min=1" form:"bot_id,omitempty" json:"bot_id,omitempty"`
 
-	// Active Activity flag
-	Active *Boolean `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
+	// Active Filter by activity flag
+	Active *DialogActiveQuery `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
 
-	// Assign Should assign
-	Assign *Boolean `binding:"omitempty,enum-valid" form:"assign,omitempty" json:"assign,omitempty"`
+	// Assign Filter by assignment status
+	Assign *AssignQuery `binding:"omitempty,enum-valid" form:"assign,omitempty" json:"assign,omitempty"`
 
-	// IncludeMassCommunication With mass communications
-	IncludeMassCommunication *Boolean `binding:"omitempty,enum-valid" form:"include_mass_communication,omitempty" json:"include_mass_communication,omitempty"`
+	// IncludeMassCommunication Whether to include mass communication chats/messages
+	IncludeMassCommunication *IncludeMassCommunicationQuery `binding:"omitempty,enum-valid" form:"include_mass_communication,omitempty" json:"include_mass_communication,omitempty"`
 }
 
 // AssignDialogResponsibleJSONBody defines parameters for AssignDialogResponsible.
@@ -2935,7 +3070,7 @@ type UpdateFileMetadataJSONBody struct {
 // ListMembersParams defines parameters for ListMembers.
 type ListMembersParams struct {
 	// ID Unique identifier of the object
-	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+	ID *ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
 	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
@@ -2953,13 +3088,13 @@ type ListMembersParams struct {
 	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// ChatID Filter by chat identifier
-	ChatID int `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
+	ChatID *ChatID `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
 
-	// UserID Filter by chat user ID
-	UserID int `binding:"omitempty,min=1" form:"user_id,omitempty" json:"user_id,omitempty"`
+	// UserID Filter by user ID
+	UserID *UserID `binding:"omitempty,min=1" form:"user_id,omitempty" json:"user_id,omitempty"`
 
 	// State Filter by member state
-	State ListMembersParamsState `binding:"omitempty,oneof=active kicked leaved" form:"state,omitempty" json:"state,omitempty"`
+	State *ListMembersParamsState `binding:"omitempty,oneof=active kicked leaved" form:"state,omitempty" json:"state,omitempty"`
 }
 
 // ListMembersParamsState defines parameters for ListMembers.
@@ -2982,35 +3117,35 @@ type ListMessagesParams struct {
 	// Limit The number of elements in the response. Default value is 100
 	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
-	// ID Filter by a list of message IDs
-	ID []int64 `binding:"omitempty,dive,min=1" form:"id,omitempty" json:"id,omitempty"`
+	// MessageID Filter by a list of message IDs
+	MessageID *MessageID `binding:"omitempty,dive,min=1" form:"id,omitempty" json:"id,omitempty"`
 
-	// ChatID Filter by chat ID
-	ChatID int64 `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
+	// ChatID Filter by chat identifier
+	ChatID *ChatID `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
 
-	// UserID Filter by chat user ID
-	UserID int64 `binding:"omitempty,min=1" form:"user_id,omitempty" json:"user_id,omitempty"`
+	// UserID Filter by user ID
+	UserID *UserID `binding:"omitempty,min=1" form:"user_id,omitempty" json:"user_id,omitempty"`
 
 	// CustomerID Filter by customer ID
-	CustomerID int64 `binding:"omitempty,min=1" form:"customer_id,omitempty" json:"customer_id,omitempty"`
+	CustomerID *CustomerID `binding:"omitempty,min=1" form:"customer_id,omitempty" json:"customer_id,omitempty"`
 
 	// BotID Filter by bot ID
-	BotID int64 `binding:"omitempty,min=1" form:"bot_id,omitempty" json:"bot_id,omitempty"`
+	BotID *BotID `binding:"omitempty,min=1" form:"bot_id,omitempty" json:"bot_id,omitempty"`
 
 	// DialogID Filter by dialog ID
-	DialogID int64 `binding:"omitempty,min=1" form:"dialog_id,omitempty" json:"dialog_id,omitempty"`
+	DialogID *DialogID `binding:"omitempty,min=1" form:"dialog_id,omitempty" json:"dialog_id,omitempty"`
 
 	// ChannelID Filter by channel ID
-	ChannelID int64 `binding:"omitempty,min=1" form:"channel_id,omitempty" json:"channel_id,omitempty"`
+	ChannelID *ChannelID `binding:"omitempty,min=1" form:"channel_id,omitempty" json:"channel_id,omitempty"`
 
 	// ChannelType Filter by channel type
-	ChannelType *ChannelType `binding:"omitempty,enum-valid" form:"channel_type,omitempty" json:"channel_type,omitempty"`
+	ChannelType *ChannelTypeSingleQuery `binding:"omitempty,enum-valid" form:"channel_type,omitempty" json:"channel_type,omitempty"`
 
 	// Type Filter by message type
-	Type *MessageType `binding:"omitempty,oneof=text system file image order product command audio" form:"type,omitempty" json:"type,omitempty"`
+	Type *MessageTypeQuery `binding:"omitempty,oneof=text system file image order product command audio" form:"type,omitempty" json:"type,omitempty"`
 
-	// IncludeMassCommunication Whether to include mass communication messages
-	IncludeMassCommunication *Boolean `binding:"omitempty,enum-valid" form:"include_mass_communication,omitempty" json:"include_mass_communication,omitempty"`
+	// IncludeMassCommunication Whether to include mass communication chats/messages
+	IncludeMassCommunication *IncludeMassCommunicationQuery `binding:"omitempty,enum-valid" form:"include_mass_communication,omitempty" json:"include_mass_communication,omitempty"`
 
 	// Scope Filter by message scope (public or private)
 	Scope *ListMessagesParamsScope `binding:"omitempty,oneof=public private" form:"scope,omitempty" json:"scope,omitempty"`
@@ -3049,7 +3184,7 @@ type EditMessageJSONBody struct {
 // ListCommandsParams defines parameters for ListCommands.
 type ListCommandsParams struct {
 	// ID Unique identifier of the object
-	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+	ID *ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Limit The number of elements in the response. Default value is 100
 	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
@@ -3067,7 +3202,7 @@ type ListCommandsParams struct {
 	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// Name Filter commands by name
-	Name string `binding:"omitempty,max=32,command_name" form:"name,omitempty" json:"name,omitempty"`
+	Name *CommandNameQuery `binding:"omitempty,max=32,command_name" form:"name,omitempty" json:"name,omitempty"`
 }
 
 // CreateOrUpdateCommandJSONBody defines parameters for CreateOrUpdateCommand.
@@ -3090,7 +3225,7 @@ type UpdateBotJSONBody struct {
 // ListUsersParams defines parameters for ListUsers.
 type ListUsersParams struct {
 	// ID Unique identifier of the object
-	ID ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
+	ID *ID `binding:"omitempty,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// Since Lower limit of the date of the last object update
 	Since *SinceQuery `form:"since,omitempty" json:"since,omitempty"`
@@ -3108,22 +3243,22 @@ type ListUsersParams struct {
 	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Active Filter users by activity status
-	Active *Boolean `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
+	Active *UserActiveQuery `binding:"omitempty,enum-valid" form:"active,omitempty" json:"active,omitempty"`
 
 	// Online Filter users by online status
-	Online *Boolean `binding:"omitempty,enum-valid" form:"online,omitempty" json:"online,omitempty"`
+	Online *UserOnlineQuery `binding:"omitempty,enum-valid" form:"online,omitempty" json:"online,omitempty"`
 
-	// ExternalID Filter users by external identifier
-	ExternalID *string `form:"external_id,omitempty" json:"external_id,omitempty"`
+	// ExternalID Filter by external identifier
+	ExternalID *ExternalID `form:"external_id,omitempty" json:"external_id,omitempty"`
 }
 
 // WebSocketConnectionParams defines parameters for WebSocketConnection.
 type WebSocketConnectionParams struct {
-	// Events Comma-separated list of events to subscribe to via WebSocket (message_new, message_updated, message_restored, message_deleted, dialog_opened, dialog_closed, dialog_assign, chat_created, chat_updated, chats_deleted, user_joined_chat, user_left_chat, user_updated, user_online_updated, channel_updated, customer_updated, bot_updated)
-	Events string `binding:"required" form:"events,omitempty" json:"events,omitempty"`
+	// Events Comma-separated list of events to subscribe to via WebSocket
+	Events WSEventsQuery `binding:"required" form:"events,omitempty" json:"events,omitempty"`
 
 	// Options Additional WebSocket connection parameters (include_mass_communication — allow receiving events for messages sent via mass mailing actions)
-	Options string `binding:"omitempty" form:"options,omitempty" json:"options,omitempty"`
+	Options WSOptionsQuery `binding:"omitempty" form:"options,omitempty" json:"options,omitempty"`
 }
 
 // CreateDialogJSONRequestBody defines body for CreateDialog for application/json ContentType.
@@ -3847,16 +3982,20 @@ func NewListBotsRequest(server string, params *ListBotsParams) (*http.Request, e
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.ID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Self != nil {
@@ -3891,16 +4030,20 @@ func NewListBotsRequest(server string, params *ListBotsParams) (*http.Request, e
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "role", runtime.ParamLocationQuery, params.Role); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Role != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "role", runtime.ParamLocationQuery, *params.Role); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Since != nil {
@@ -4016,28 +4159,36 @@ func NewListChannelsRequest(server string, params *ListChannelsParams) (*http.Re
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.ID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "types", runtime.ParamLocationQuery, params.Types); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Types != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "types", runtime.ParamLocationQuery, *params.Types); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Active != nil {
@@ -4169,16 +4320,20 @@ func NewListChatsRequest(server string, params *ListChatsParams) (*http.Request,
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.ID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Since != nil {
@@ -4421,16 +4576,20 @@ func NewListCustomersRequest(server string, params *ListCustomersParams) (*http.
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.ID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Since != nil {
@@ -4513,16 +4672,20 @@ func NewListCustomersRequest(server string, params *ListCustomersParams) (*http.
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "channel_id", runtime.ParamLocationQuery, params.ChannelID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ChannelID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "channel_id", runtime.ParamLocationQuery, *params.ChannelID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.ChannelType != nil {
@@ -4541,16 +4704,20 @@ func NewListCustomersRequest(server string, params *ListCustomersParams) (*http.
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "external_id", runtime.ParamLocationQuery, params.ExternalID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ExternalID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "external_id", runtime.ParamLocationQuery, *params.ExternalID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -4586,16 +4753,20 @@ func NewListDialogsRequest(server string, params *ListDialogsParams) (*http.Requ
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.ID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Since != nil {
@@ -4678,40 +4849,52 @@ func NewListDialogsRequest(server string, params *ListDialogsParams) (*http.Requ
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "chat_id", runtime.ParamLocationQuery, params.ChatID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ChatID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "chat_id", runtime.ParamLocationQuery, *params.ChatID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "user_id", runtime.ParamLocationQuery, params.UserID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UserID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "user_id", runtime.ParamLocationQuery, *params.UserID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "bot_id", runtime.ParamLocationQuery, params.BotID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.BotID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "bot_id", runtime.ParamLocationQuery, *params.BotID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Active != nil {
@@ -5154,16 +5337,20 @@ func NewListMembersRequest(server string, params *ListMembersParams) (*http.Requ
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.ID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Since != nil {
@@ -5246,40 +5433,52 @@ func NewListMembersRequest(server string, params *ListMembersParams) (*http.Requ
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "chat_id", runtime.ParamLocationQuery, params.ChatID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ChatID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "chat_id", runtime.ParamLocationQuery, *params.ChatID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "user_id", runtime.ParamLocationQuery, params.UserID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UserID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "user_id", runtime.ParamLocationQuery, *params.UserID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "state", runtime.ParamLocationQuery, params.State); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.State != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "state", runtime.ParamLocationQuery, *params.State); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5395,88 +5594,116 @@ func NewListMessagesRequest(server string, params *ListMessagesParams) (*http.Re
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.MessageID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.MessageID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "chat_id", runtime.ParamLocationQuery, params.ChatID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ChatID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "chat_id", runtime.ParamLocationQuery, *params.ChatID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "user_id", runtime.ParamLocationQuery, params.UserID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.UserID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "user_id", runtime.ParamLocationQuery, *params.UserID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "customer_id", runtime.ParamLocationQuery, params.CustomerID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.CustomerID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "customer_id", runtime.ParamLocationQuery, *params.CustomerID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "bot_id", runtime.ParamLocationQuery, params.BotID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.BotID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "bot_id", runtime.ParamLocationQuery, *params.BotID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "dialog_id", runtime.ParamLocationQuery, params.DialogID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.DialogID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "dialog_id", runtime.ParamLocationQuery, *params.DialogID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "channel_id", runtime.ParamLocationQuery, params.ChannelID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ChannelID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "channel_id", runtime.ParamLocationQuery, *params.ChannelID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.ChannelType != nil {
@@ -5697,16 +5924,20 @@ func NewListCommandsRequest(server string, params *ListCommandsParams) (*http.Re
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.ID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Limit != nil {
@@ -5789,16 +6020,20 @@ func NewListCommandsRequest(server string, params *ListCommandsParams) (*http.Re
 
 		}
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "name", runtime.ParamLocationQuery, params.Name); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.Name != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "name", runtime.ParamLocationQuery, *params.Name); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		queryURL.RawQuery = queryValues.Encode()
@@ -5955,16 +6190,20 @@ func NewListUsersRequest(server string, params *ListUsersParams) (*http.Request,
 	if params != nil {
 		queryValues := queryURL.Query()
 
-		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.ID); err != nil {
-			return nil, err
-		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-			return nil, err
-		} else {
-			for k, v := range parsed {
-				for _, v2 := range v {
-					queryValues.Add(k, v2)
+		if params.ID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.ID); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
 				}
 			}
+
 		}
 
 		if params.Since != nil {

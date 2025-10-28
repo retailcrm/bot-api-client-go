@@ -23,7 +23,9 @@ func TestListBotsWithResponse(t *testing.T) {
 	self := BooleanTrue
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
+	limit := 50
+	id := 123
+	botRoles := BotRoleQuery{RoleBotRoleResponsible}
 
 	testCases := []struct {
 		name          string
@@ -33,10 +35,10 @@ func TestListBotsWithResponse(t *testing.T) {
 		{
 			name: "all parameters",
 			params: &ListBotsParams{
-				ID:      123,
+				ID:      &id,
 				Self:    &self,
 				Active:  &active,
-				Role:    BotRoleQuery{RoleBotRoleResponsible},
+				Role:    &botRoles,
 				Since:   &since,
 				SinceID: &sinceID,
 				Until:   &until,
@@ -46,11 +48,9 @@ func TestListBotsWithResponse(t *testing.T) {
 			expectedQuery: "active=true&id=123&limit=50&role=responsible&self=true&since=2024-12-31T00%3A00%3A00Z&since_id=100&until=2025-01-01T00%3A00%3A00Z&until_id=200",
 		},
 		{
-			name: "required parameters only",
-			params: &ListBotsParams{
-				ID: 123,
-			},
-			expectedQuery: "id=123&role=",
+			name:          "empty parameters",
+			params:        &ListBotsParams{},
+			expectedQuery: "",
 		},
 	}
 
@@ -105,7 +105,9 @@ func TestListChannelsWithResponse(t *testing.T) {
 	active := BooleanTrue
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
+	limit := 50
+	id := 123
+	channelTypes := ChannelTypeQuery{ChannelTypeTelegram, ChannelTypeWhatsapp}
 
 	testCases := []struct {
 		name          string
@@ -115,8 +117,8 @@ func TestListChannelsWithResponse(t *testing.T) {
 		{
 			name: "all parameters",
 			params: &ListChannelsParams{
-				ID:      123,
-				Types:   ChannelTypeQuery{ChannelTypeTelegram, ChannelTypeWhatsapp},
+				ID:      &id,
+				Types:   &channelTypes,
 				Active:  &active,
 				Since:   &since,
 				SinceID: &sinceID,
@@ -129,7 +131,7 @@ func TestListChannelsWithResponse(t *testing.T) {
 		{
 			name:          "empty parameters",
 			params:        &ListChannelsParams{},
-			expectedQuery: "id=0&types=",
+			expectedQuery: "",
 		},
 	}
 
@@ -181,8 +183,9 @@ func TestListChatsWithResponse(t *testing.T) {
 	until := date
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
+	limit := 50
 	channelID := 10
+	id := 123
 
 	testCases := []struct {
 		name          string
@@ -192,7 +195,7 @@ func TestListChatsWithResponse(t *testing.T) {
 		{
 			name: "all parameters",
 			params: &ListChatsParams{
-				ID:        123,
+				ID:        &id,
 				Since:     &since,
 				Until:     &until,
 				Limit:     &limit,
@@ -205,7 +208,7 @@ func TestListChatsWithResponse(t *testing.T) {
 		{
 			name:          "empty parameters",
 			params:        &ListChatsParams{},
-			expectedQuery: "id=0",
+			expectedQuery: "",
 		},
 	}
 
@@ -253,8 +256,9 @@ func TestListCustomersWithResponse(t *testing.T) {
 	until := date
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
+	limit := 50
 	channelID := 10
+	id := 123
 
 	testCases := []struct {
 		name          string
@@ -264,20 +268,20 @@ func TestListCustomersWithResponse(t *testing.T) {
 		{
 			name: "all parameters",
 			params: &ListCustomersParams{
-				ID:        123,
+				ID:        &id,
 				Since:     &since,
 				Until:     &until,
 				SinceID:   &sinceID,
 				UntilID:   &untilID,
 				Limit:     &limit,
-				ChannelID: channelID,
+				ChannelID: &channelID,
 			},
-			expectedQuery: "channel_id=10&external_id=&id=123&limit=50&since=2024-12-31T00%3A00%3A00Z&since_id=100&until=2025-01-01T00%3A00%3A00Z&until_id=200",
+			expectedQuery: "channel_id=10&id=123&limit=50&since=2024-12-31T00%3A00%3A00Z&since_id=100&until=2025-01-01T00%3A00%3A00Z&until_id=200",
 		},
 		{
 			name:          "empty parameters",
 			params:        &ListCustomersParams{},
-			expectedQuery: "channel_id=0&external_id=&id=0",
+			expectedQuery: "",
 		},
 	}
 
@@ -328,8 +332,9 @@ func TestListDialogsWithResponse(t *testing.T) {
 	until := date
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
+	limit := 50
 	chatID := 10
+	id := 123
 
 	testCases := []struct {
 		name          string
@@ -339,20 +344,20 @@ func TestListDialogsWithResponse(t *testing.T) {
 		{
 			name: "all parameters",
 			params: &ListDialogsParams{
-				ID:      123,
+				ID:      &id,
 				Since:   &since,
 				Until:   &until,
 				SinceID: &sinceID,
 				UntilID: &untilID,
 				Limit:   &limit,
-				ChatID:  chatID,
+				ChatID:  &chatID,
 			},
-			expectedQuery: "bot_id=0&chat_id=10&id=123&limit=50&since=2024-12-31T00%3A00%3A00Z&since_id=100&until=2025-01-01T00%3A00%3A00Z&until_id=200&user_id=0",
+			expectedQuery: "chat_id=10&id=123&limit=50&since=2024-12-31T00%3A00%3A00Z&since_id=100&until=2025-01-01T00%3A00%3A00Z&until_id=200",
 		},
 		{
 			name:          "empty parameters",
 			params:        &ListDialogsParams{},
-			expectedQuery: "bot_id=0&chat_id=0&id=0&user_id=0",
+			expectedQuery: "",
 		},
 	}
 
@@ -402,10 +407,11 @@ func TestListMembersWithResponse(t *testing.T) {
 	until := date
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
+	limit := 50
 	chatID := 10
 	userID := 20
 	state := ListMembersParamsState("active")
+	id := 123
 
 	testCases := []struct {
 		name          string
@@ -415,22 +421,22 @@ func TestListMembersWithResponse(t *testing.T) {
 		{
 			name: "all parameters",
 			params: &ListMembersParams{
-				ID:      123,
+				ID:      &id,
 				Since:   &since,
 				Until:   &until,
 				SinceID: &sinceID,
 				UntilID: &untilID,
 				Limit:   &limit,
-				ChatID:  chatID,
-				UserID:  userID,
-				State:   state,
+				ChatID:  &chatID,
+				UserID:  &userID,
+				State:   &state,
 			},
 			expectedQuery: "chat_id=10&id=123&limit=50&since=2024-12-31T00%3A00%3A00Z&since_id=100&state=active&until=2025-01-01T00%3A00%3A00Z&until_id=200&user_id=20",
 		},
 		{
 			name:          "empty parameters",
 			params:        &ListMembersParams{},
-			expectedQuery: "chat_id=0&id=0&state=&user_id=0",
+			expectedQuery: "",
 		},
 	}
 
@@ -481,13 +487,14 @@ func TestListMessagesWithResponse(t *testing.T) {
 	until := date
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
-	chatID := int64(10)
-	userID := int64(20)
+	limit := 50
+	chatID := 10
+	userID := 20
 	channelType := ChannelTypeTelegram
 	messageType := MessageTypeText
 	scope := ListMessagesParamsScopePrivate
 	includeMass := BooleanTrue
+	messageIds := []int64{1, 2, 3}
 
 	testCases := []struct {
 		name          string
@@ -502,20 +509,20 @@ func TestListMessagesWithResponse(t *testing.T) {
 				SinceID:                  &sinceID,
 				UntilID:                  &untilID,
 				Limit:                    &limit,
-				ID:                       []int64{1, 2, 3},
-				ChatID:                   chatID,
-				UserID:                   userID,
+				MessageID:                &messageIds,
+				ChatID:                   &chatID,
+				UserID:                   &userID,
 				ChannelType:              &channelType,
 				Type:                     &messageType,
 				IncludeMassCommunication: &includeMass,
 				Scope:                    &scope,
 			},
-			expectedQuery: "bot_id=0&channel_id=0&channel_type=telegram&chat_id=10&customer_id=0&dialog_id=0&id=1&id=2&id=3&include_mass_communication=true&limit=50&scope=private&since=2024-12-31T00%3A00%3A00Z&since_id=100&type=text&until=2025-01-01T00%3A00%3A00Z&until_id=200&user_id=20",
+			expectedQuery: "channel_type=telegram&chat_id=10&id=1&id=2&id=3&include_mass_communication=true&limit=50&scope=private&since=2024-12-31T00%3A00%3A00Z&since_id=100&type=text&until=2025-01-01T00%3A00%3A00Z&until_id=200&user_id=20",
 		},
 		{
 			name:          "empty parameters",
 			params:        &ListMessagesParams{},
-			expectedQuery: "bot_id=0&channel_id=0&chat_id=0&customer_id=0&dialog_id=0&id=&user_id=0",
+			expectedQuery: "",
 		},
 	}
 
@@ -568,7 +575,9 @@ func TestListCommandsWithResponse(t *testing.T) {
 	until := date
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
+	limit := 50
+	id := 123
+	name := "start"
 
 	testCases := []struct {
 		name          string
@@ -578,20 +587,20 @@ func TestListCommandsWithResponse(t *testing.T) {
 		{
 			name: "all parameters",
 			params: &ListCommandsParams{
-				ID:      123,
+				ID:      &id,
 				Limit:   &limit,
 				SinceID: &sinceID,
 				Since:   &since,
 				UntilID: &untilID,
 				Until:   &until,
-				Name:    "start",
+				Name:    &name,
 			},
 			expectedQuery: "id=123&limit=50&name=start&since=2024-12-31T00%3A00%3A00Z&since_id=100&until=2025-01-01T00%3A00%3A00Z&until_id=200",
 		},
 		{
 			name:          "empty parameters",
 			params:        &ListCommandsParams{},
-			expectedQuery: "id=0&name=",
+			expectedQuery: "",
 		},
 	}
 
@@ -641,8 +650,9 @@ func TestListUsersWithResponse(t *testing.T) {
 	until := date
 	sinceID := SinceID(100)
 	untilID := UntilID(200)
-	limit := LimitQuery(50)
+	limit := 50
 	active := BooleanTrue
+	id := 123
 
 	testCases := []struct {
 		name          string
@@ -652,7 +662,7 @@ func TestListUsersWithResponse(t *testing.T) {
 		{
 			name: "all parameters",
 			params: &ListUsersParams{
-				ID:      123,
+				ID:      &id,
 				Since:   &since,
 				Until:   &until,
 				SinceID: &sinceID,
@@ -665,7 +675,7 @@ func TestListUsersWithResponse(t *testing.T) {
 		{
 			name:          "empty parameters",
 			params:        &ListUsersParams{},
-			expectedQuery: "id=0",
+			expectedQuery: "",
 		},
 	}
 
