@@ -374,38 +374,38 @@ func (v *ColorCode) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Defines values for CustomerExternalId.
+// Defines values for CustomerExternalID.
 const (
-	CustomerExternalIdAny   CustomerExternalId = "any"
-	CustomerExternalIdPhone CustomerExternalId = "phone"
+	CustomerExternalIDAny   CustomerExternalID = "any"
+	CustomerExternalIDPhone CustomerExternalID = "phone"
 )
 
-// EnumValues returns all valid values for CustomerExternalId.
-func (CustomerExternalId) EnumValues() []string {
+// EnumValues returns all valid values for CustomerExternalID.
+func (CustomerExternalID) EnumValues() []string {
 	return []string{
-		string(CustomerExternalIdAny),
-		string(CustomerExternalIdPhone),
+		string(CustomerExternalIDAny),
+		string(CustomerExternalIDPhone),
 	}
 }
 
-// Validate validates the value of CustomerExternalId.
-func (v CustomerExternalId) ValidateEnum() error {
+// Validate validates the value of CustomerExternalID.
+func (v CustomerExternalID) ValidateEnum() error {
 	for _, value := range v.EnumValues() {
 		if string(v) == value {
 			return nil
 		}
 	}
-	return fmt.Errorf("invalid value for CustomerExternalId: %v", v)
+	return fmt.Errorf("invalid value for CustomerExternalID: %v", v)
 }
 
-// UnmarshalJSON implements the json.Unmarshaler interface for CustomerExternalId.
-func (v *CustomerExternalId) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaler interface for CustomerExternalID.
+func (v *CustomerExternalID) UnmarshalJSON(data []byte) error {
 	var s string
 	if err := json.Unmarshal(data, &s); err != nil {
 		return &json.UnmarshalTypeError{Value: err.Error()}
 	}
 
-	*v = CustomerExternalId(s)
+	*v = CustomerExternalID(s)
 	return nil
 }
 
@@ -1344,8 +1344,8 @@ type Bot struct {
 	// AvatarUrl Public URL of the bot's avatar image
 	AvatarUrl *string `json:"avatar_url,omitempty"`
 
-	// ClientId Unique external client identifier of the bot
-	ClientId string `json:"client_id"`
+	// ClientID Unique external client identifier of the bot
+	ClientID string `json:"client_id"`
 
 	// CreatedAt Date and time in RFC 3339 format with microseconds
 	CreatedAt DateTimeRFC3339Micro `json:"created_at"`
@@ -1437,8 +1437,8 @@ type ChannelSettings struct {
 	// Audio Support settings for audio messages in the channel
 	Audio AudioMessageSetting `json:"audio,omitempty"`
 
-	// CustomerExternalId Support for external customer identifiers
-	CustomerExternalId CustomerExternalId `json:"customer_external_id,omitempty"`
+	// CustomerExternalID Support for external customer identifiers
+	CustomerExternalID CustomerExternalID `json:"customer_external_id,omitempty"`
 
 	// File File messages support
 	File FileMessageSetting `json:"file,omitempty"`
@@ -1687,7 +1687,7 @@ type CreateCommandRequestBody struct {
 // Customer Dialog object
 type Customer struct {
 	Avatar    *string `json:"avatar,omitempty"`
-	ChannelId *int64  `json:"channel_id,omitempty"`
+	ChannelID *int64  `json:"channel_id,omitempty"`
 	Country   *string `json:"country,omitempty"`
 
 	// CreatedAt Date and time in RFC 3339 format with microseconds
@@ -1711,8 +1711,8 @@ type Customer struct {
 	Utm       *Utm                  `json:"utm"`
 }
 
-// CustomerExternalId Support for external customer identifiers
-type CustomerExternalId string
+// CustomerExternalID Support for external customer identifiers
+type CustomerExternalID string
 
 // Dialog Dialog object
 type Dialog struct {
@@ -2360,8 +2360,8 @@ type SendMessageRequestBody struct {
 	// Product Product data (required for product messages only)
 	Product *MessageProduct `json:"product,omitempty"`
 
-	// QuoteMessageId ID of the quoted message (required for text messages only)
-	QuoteMessageId int64 `json:"quote_message_id,omitempty"`
+	// QuoteMessageID ID of the quoted message (required for text messages only)
+	QuoteMessageID int64 `json:"quote_message_id,omitempty"`
 
 	// Scope Scope of the message (e.g., user, system)
 	Scope                MessageScope                 `binding:"required" json:"scope"`
@@ -2580,8 +2580,8 @@ type ChannelTypeSingleQuery = ChannelType
 // ChatID defines model for ChatIDQuery.
 type ChatID = int
 
-// ChatIdPath defines model for ChatIdPath.
-type ChatIdPath = int64
+// ChatIDPath defines model for ChatIdPath.
+type ChatIDPath = int64
 
 // CommandNamePath defines model for CommandNamePath.
 type CommandNamePath = string
@@ -2589,8 +2589,8 @@ type CommandNamePath = string
 // CommandNameQuery defines model for CommandNameQuery.
 type CommandNameQuery = string
 
-// CustomerExternalID defines model for CustomerExternalIDQuery.
-type CustomerExternalID = string
+// CustomerExternalIDQuery defines model for CustomerExternalIDQuery.
+type CustomerExternalIDQuery = string
 
 // CustomerID defines model for CustomerIDQuery.
 type CustomerID = int
@@ -2601,14 +2601,14 @@ type DialogActiveQuery = Boolean
 // DialogID defines model for DialogIDQuery.
 type DialogID = int64
 
-// DialogIdPath defines model for DialogIdPath.
-type DialogIdPath = int64
+// DialogIDPath defines model for DialogIdPath.
+type DialogIDPath = int64
 
 // ExternalID defines model for ExternalIDQuery.
 type ExternalID = string
 
-// FileIdPath defines model for FileIdPath.
-type FileIdPath = openapi_types.UUID
+// FileIDPath defines model for FileIdPath.
+type FileIDPath = openapi_types.UUID
 
 // ID defines model for IDQuery.
 type ID = int
@@ -2622,11 +2622,11 @@ type LimitQuery = int
 // MemberStateQuery defines model for MemberStateQuery.
 type MemberStateQuery string
 
-// MessageID defines model for MessageIDArrayQuery.
-type MessageID = []int64
+// MessageIDs defines model for MessageIDArrayQuery.
+type MessageIDs = []int64
 
-// MessageIdPath defines model for MessageIdPath.
-type MessageIdPath = int64
+// MessageIDPath defines model for MessageIdPath.
+type MessageIDPath = int64
 
 // MessageScopeQuery defines model for MessageScopeQuery.
 type MessageScopeQuery string
@@ -2812,8 +2812,8 @@ type EditMessageRequest struct {
 	// Product Product data (required for product messages only)
 	Product *MessageProduct `json:"product,omitempty"`
 
-	// QuoteMessageId ID of the quoted message (required for text messages only)
-	QuoteMessageId int64 `json:"quote_message_id,omitempty"`
+	// QuoteMessageID ID of the quoted message (required for text messages only)
+	QuoteMessageID int64 `json:"quote_message_id,omitempty"`
 }
 
 // SendMessageRequest Represents the payload of a message, including content, attachments, and related metadata depending on the message type
@@ -2932,8 +2932,8 @@ type ListChatsParams struct {
 	// CustomerID Filter by customer ID
 	CustomerID *CustomerID `binding:"omitempty,min=1" form:"customer_id,omitempty" json:"customer_id,omitempty"`
 
-	// CustomerExternalID Filter by external customer ID
-	CustomerExternalID *CustomerExternalID `binding:"omitempty,min=1" form:"customer_external_id,omitempty" json:"customer_external_id,omitempty"`
+	// CustomerExternalIDQuery Filter by external customer ID
+	CustomerExternalIDQuery *CustomerExternalIDQuery `binding:"omitempty,min=1" form:"customer_external_id,omitempty" json:"customer_external_id,omitempty"`
 
 	// IncludeMassCommunication Whether to include mass communication chats/messages
 	IncludeMassCommunication *IncludeMassCommunicationQuery `binding:"omitempty,enum-valid" form:"include_mass_communication,omitempty" json:"include_mass_communication,omitempty"`
@@ -3117,8 +3117,8 @@ type ListMessagesParams struct {
 	// Limit The number of elements in the response. Default value is 100
 	Limit *LimitQuery `binding:"omitempty,min=1,max=1000" form:"limit,omitempty" json:"limit,omitempty"`
 
-	// MessageID Filter by a list of message IDs
-	MessageID *MessageID `binding:"omitempty,dive,min=1" form:"id,omitempty" json:"id,omitempty"`
+	// MessageIDs Filter by a list of message IDs
+	MessageIDs *MessageIDs `binding:"omitempty,dive,min=1" form:"id,omitempty" json:"id,omitempty"`
 
 	// ChatID Filter by chat identifier
 	ChatID *ChatID `binding:"omitempty,min=1" form:"chat_id,omitempty" json:"chat_id,omitempty"`
@@ -3177,8 +3177,8 @@ type EditMessageJSONBody struct {
 	// Product Product data (required for product messages only)
 	Product *MessageProduct `json:"product,omitempty"`
 
-	// QuoteMessageId ID of the quoted message (required for text messages only)
-	QuoteMessageId int64 `json:"quote_message_id,omitempty"`
+	// QuoteMessageID ID of the quoted message (required for text messages only)
+	QuoteMessageID int64 `json:"quote_message_id,omitempty"`
 }
 
 // ListCommandsParams defines parameters for ListCommands.
@@ -3439,9 +3439,9 @@ type ClientInterface interface {
 	ListChats(ctx context.Context, params *ListChatsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CreateDialogWithBody request with any body
-	CreateDialogWithBody(ctx context.Context, chatId ChatIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDialogWithBody(ctx context.Context, chatIDPath ChatIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	CreateDialog(ctx context.Context, chatId ChatIdPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CreateDialog(ctx context.Context, chatIDPath ChatIDPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListCustomers request
 	ListCustomers(ctx context.Context, params *ListCustomersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -3450,25 +3450,25 @@ type ClientInterface interface {
 	ListDialogs(ctx context.Context, params *ListDialogsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// AssignDialogResponsibleWithBody request with any body
-	AssignDialogResponsibleWithBody(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	AssignDialogResponsibleWithBody(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	AssignDialogResponsible(ctx context.Context, dialogId DialogIdPath, body AssignDialogResponsibleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	AssignDialogResponsible(ctx context.Context, dialogIDPath DialogIDPath, body AssignDialogResponsibleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// CloseDialog request
-	CloseDialog(ctx context.Context, dialogId DialogIdPath, reqEditors ...RequestEditorFn) (*http.Response, error)
+	CloseDialog(ctx context.Context, dialogIDPath DialogIDPath, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DialogAddTagsWithBody request with any body
-	DialogAddTagsWithBody(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DialogAddTagsWithBody(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	DialogAddTags(ctx context.Context, dialogId DialogIdPath, body DialogAddTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DialogAddTags(ctx context.Context, dialogIDPath DialogIDPath, body DialogAddTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DialogDeleteTagsWithBody request with any body
-	DialogDeleteTagsWithBody(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DialogDeleteTagsWithBody(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	DialogDeleteTags(ctx context.Context, dialogId DialogIdPath, body DialogDeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DialogDeleteTags(ctx context.Context, dialogIDPath DialogIDPath, body DialogDeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UnassignDialogResponsible request
-	UnassignDialogResponsible(ctx context.Context, dialogId DialogIdPath, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UnassignDialogResponsible(ctx context.Context, dialogIDPath DialogIDPath, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UploadFileWithBody request with any body
 	UploadFileWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -3479,12 +3479,12 @@ type ClientInterface interface {
 	UploadFileByUrl(ctx context.Context, body UploadFileByUrlJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetFileUrl request
-	GetFileUrl(ctx context.Context, id FileIdPath, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetFileUrl(ctx context.Context, fileIDPath FileIDPath, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateFileMetadataWithBody request with any body
-	UpdateFileMetadataWithBody(ctx context.Context, id FileIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateFileMetadataWithBody(ctx context.Context, fileIDPath FileIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	UpdateFileMetadata(ctx context.Context, id FileIdPath, body UpdateFileMetadataJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateFileMetadata(ctx context.Context, fileIDPath FileIDPath, body UpdateFileMetadataJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListMembers request
 	ListMembers(ctx context.Context, params *ListMembersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -3498,12 +3498,12 @@ type ClientInterface interface {
 	SendMessage(ctx context.Context, body SendMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteMessage request
-	DeleteMessage(ctx context.Context, messageId MessageIdPath, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteMessage(ctx context.Context, messageIDPath MessageIDPath, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// EditMessageWithBody request with any body
-	EditMessageWithBody(ctx context.Context, messageId MessageIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	EditMessageWithBody(ctx context.Context, messageIDPath MessageIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	EditMessage(ctx context.Context, messageId MessageIdPath, body EditMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	EditMessage(ctx context.Context, messageIDPath MessageIDPath, body EditMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListCommands request
 	ListCommands(ctx context.Context, params *ListCommandsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -3564,8 +3564,8 @@ func (c *Client) ListChats(ctx context.Context, params *ListChatsParams, reqEdit
 	return c.Client.Do(req)
 }
 
-func (c *Client) CreateDialogWithBody(ctx context.Context, chatId ChatIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateDialogRequestWithBody(c.Server, chatId, contentType, body)
+func (c *Client) CreateDialogWithBody(ctx context.Context, chatIDPath ChatIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateDialogRequestWithBody(c.Server, chatIDPath, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3576,8 +3576,8 @@ func (c *Client) CreateDialogWithBody(ctx context.Context, chatId ChatIdPath, co
 	return c.Client.Do(req)
 }
 
-func (c *Client) CreateDialog(ctx context.Context, chatId ChatIdPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCreateDialogRequest(c.Server, chatId, body)
+func (c *Client) CreateDialog(ctx context.Context, chatIDPath ChatIDPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateDialogRequest(c.Server, chatIDPath, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3612,8 +3612,8 @@ func (c *Client) ListDialogs(ctx context.Context, params *ListDialogsParams, req
 	return c.Client.Do(req)
 }
 
-func (c *Client) AssignDialogResponsibleWithBody(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAssignDialogResponsibleRequestWithBody(c.Server, dialogId, contentType, body)
+func (c *Client) AssignDialogResponsibleWithBody(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAssignDialogResponsibleRequestWithBody(c.Server, dialogIDPath, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3624,8 +3624,8 @@ func (c *Client) AssignDialogResponsibleWithBody(ctx context.Context, dialogId D
 	return c.Client.Do(req)
 }
 
-func (c *Client) AssignDialogResponsible(ctx context.Context, dialogId DialogIdPath, body AssignDialogResponsibleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewAssignDialogResponsibleRequest(c.Server, dialogId, body)
+func (c *Client) AssignDialogResponsible(ctx context.Context, dialogIDPath DialogIDPath, body AssignDialogResponsibleJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewAssignDialogResponsibleRequest(c.Server, dialogIDPath, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3636,8 +3636,8 @@ func (c *Client) AssignDialogResponsible(ctx context.Context, dialogId DialogIdP
 	return c.Client.Do(req)
 }
 
-func (c *Client) CloseDialog(ctx context.Context, dialogId DialogIdPath, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewCloseDialogRequest(c.Server, dialogId)
+func (c *Client) CloseDialog(ctx context.Context, dialogIDPath DialogIDPath, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCloseDialogRequest(c.Server, dialogIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -3648,8 +3648,8 @@ func (c *Client) CloseDialog(ctx context.Context, dialogId DialogIdPath, reqEdit
 	return c.Client.Do(req)
 }
 
-func (c *Client) DialogAddTagsWithBody(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDialogAddTagsRequestWithBody(c.Server, dialogId, contentType, body)
+func (c *Client) DialogAddTagsWithBody(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDialogAddTagsRequestWithBody(c.Server, dialogIDPath, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3660,8 +3660,8 @@ func (c *Client) DialogAddTagsWithBody(ctx context.Context, dialogId DialogIdPat
 	return c.Client.Do(req)
 }
 
-func (c *Client) DialogAddTags(ctx context.Context, dialogId DialogIdPath, body DialogAddTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDialogAddTagsRequest(c.Server, dialogId, body)
+func (c *Client) DialogAddTags(ctx context.Context, dialogIDPath DialogIDPath, body DialogAddTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDialogAddTagsRequest(c.Server, dialogIDPath, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3672,8 +3672,8 @@ func (c *Client) DialogAddTags(ctx context.Context, dialogId DialogIdPath, body 
 	return c.Client.Do(req)
 }
 
-func (c *Client) DialogDeleteTagsWithBody(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDialogDeleteTagsRequestWithBody(c.Server, dialogId, contentType, body)
+func (c *Client) DialogDeleteTagsWithBody(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDialogDeleteTagsRequestWithBody(c.Server, dialogIDPath, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3684,8 +3684,8 @@ func (c *Client) DialogDeleteTagsWithBody(ctx context.Context, dialogId DialogId
 	return c.Client.Do(req)
 }
 
-func (c *Client) DialogDeleteTags(ctx context.Context, dialogId DialogIdPath, body DialogDeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDialogDeleteTagsRequest(c.Server, dialogId, body)
+func (c *Client) DialogDeleteTags(ctx context.Context, dialogIDPath DialogIDPath, body DialogDeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDialogDeleteTagsRequest(c.Server, dialogIDPath, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3696,8 +3696,8 @@ func (c *Client) DialogDeleteTags(ctx context.Context, dialogId DialogIdPath, bo
 	return c.Client.Do(req)
 }
 
-func (c *Client) UnassignDialogResponsible(ctx context.Context, dialogId DialogIdPath, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUnassignDialogResponsibleRequest(c.Server, dialogId)
+func (c *Client) UnassignDialogResponsible(ctx context.Context, dialogIDPath DialogIDPath, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUnassignDialogResponsibleRequest(c.Server, dialogIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -3744,8 +3744,8 @@ func (c *Client) UploadFileByUrl(ctx context.Context, body UploadFileByUrlJSONRe
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetFileUrl(ctx context.Context, id FileIdPath, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetFileUrlRequest(c.Server, id)
+func (c *Client) GetFileUrl(ctx context.Context, fileIDPath FileIDPath, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetFileUrlRequest(c.Server, fileIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -3756,8 +3756,8 @@ func (c *Client) GetFileUrl(ctx context.Context, id FileIdPath, reqEditors ...Re
 	return c.Client.Do(req)
 }
 
-func (c *Client) UpdateFileMetadataWithBody(ctx context.Context, id FileIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateFileMetadataRequestWithBody(c.Server, id, contentType, body)
+func (c *Client) UpdateFileMetadataWithBody(ctx context.Context, fileIDPath FileIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateFileMetadataRequestWithBody(c.Server, fileIDPath, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3768,8 +3768,8 @@ func (c *Client) UpdateFileMetadataWithBody(ctx context.Context, id FileIdPath, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) UpdateFileMetadata(ctx context.Context, id FileIdPath, body UpdateFileMetadataJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateFileMetadataRequest(c.Server, id, body)
+func (c *Client) UpdateFileMetadata(ctx context.Context, fileIDPath FileIDPath, body UpdateFileMetadataJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateFileMetadataRequest(c.Server, fileIDPath, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3828,8 +3828,8 @@ func (c *Client) SendMessage(ctx context.Context, body SendMessageJSONRequestBod
 	return c.Client.Do(req)
 }
 
-func (c *Client) DeleteMessage(ctx context.Context, messageId MessageIdPath, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteMessageRequest(c.Server, messageId)
+func (c *Client) DeleteMessage(ctx context.Context, messageIDPath MessageIDPath, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteMessageRequest(c.Server, messageIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -3840,8 +3840,8 @@ func (c *Client) DeleteMessage(ctx context.Context, messageId MessageIdPath, req
 	return c.Client.Do(req)
 }
 
-func (c *Client) EditMessageWithBody(ctx context.Context, messageId MessageIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewEditMessageRequestWithBody(c.Server, messageId, contentType, body)
+func (c *Client) EditMessageWithBody(ctx context.Context, messageIDPath MessageIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEditMessageRequestWithBody(c.Server, messageIDPath, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -3852,8 +3852,8 @@ func (c *Client) EditMessageWithBody(ctx context.Context, messageId MessageIdPat
 	return c.Client.Do(req)
 }
 
-func (c *Client) EditMessage(ctx context.Context, messageId MessageIdPath, body EditMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewEditMessageRequest(c.Server, messageId, body)
+func (c *Client) EditMessage(ctx context.Context, messageIDPath MessageIDPath, body EditMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewEditMessageRequest(c.Server, messageIDPath, body)
 	if err != nil {
 		return nil, err
 	}
@@ -4464,9 +4464,9 @@ func NewListChatsRequest(server string, params *ListChatsParams) (*http.Request,
 
 		}
 
-		if params.CustomerExternalID != nil {
+		if params.CustomerExternalIDQuery != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "customer_external_id", runtime.ParamLocationQuery, *params.CustomerExternalID); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "customer_external_id", runtime.ParamLocationQuery, *params.CustomerExternalIDQuery); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -4508,23 +4508,23 @@ func NewListChatsRequest(server string, params *ListChatsParams) (*http.Request,
 }
 
 // NewCreateDialogRequest calls the generic CreateDialog builder with application/json body
-func NewCreateDialogRequest(server string, chatId ChatIdPath, body CreateDialogJSONRequestBody) (*http.Request, error) {
+func NewCreateDialogRequest(server string, chatIDPath ChatIDPath, body CreateDialogJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewCreateDialogRequestWithBody(server, chatId, "application/json", bodyReader)
+	return NewCreateDialogRequestWithBody(server, chatIDPath, "application/json", bodyReader)
 }
 
 // NewCreateDialogRequestWithBody generates requests for CreateDialog with any type of body
-func NewCreateDialogRequestWithBody(server string, chatId ChatIdPath, contentType string, body io.Reader) (*http.Request, error) {
+func NewCreateDialogRequestWithBody(server string, chatIDPath ChatIDPath, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "chat_id", runtime.ParamLocationPath, chatId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "chat_id", runtime.ParamLocationPath, chatIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -4957,23 +4957,23 @@ func NewListDialogsRequest(server string, params *ListDialogsParams) (*http.Requ
 }
 
 // NewAssignDialogResponsibleRequest calls the generic AssignDialogResponsible builder with application/json body
-func NewAssignDialogResponsibleRequest(server string, dialogId DialogIdPath, body AssignDialogResponsibleJSONRequestBody) (*http.Request, error) {
+func NewAssignDialogResponsibleRequest(server string, dialogIDPath DialogIDPath, body AssignDialogResponsibleJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewAssignDialogResponsibleRequestWithBody(server, dialogId, "application/json", bodyReader)
+	return NewAssignDialogResponsibleRequestWithBody(server, dialogIDPath, "application/json", bodyReader)
 }
 
 // NewAssignDialogResponsibleRequestWithBody generates requests for AssignDialogResponsible with any type of body
-func NewAssignDialogResponsibleRequestWithBody(server string, dialogId DialogIdPath, contentType string, body io.Reader) (*http.Request, error) {
+func NewAssignDialogResponsibleRequestWithBody(server string, dialogIDPath DialogIDPath, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -5004,12 +5004,12 @@ func NewAssignDialogResponsibleRequestWithBody(server string, dialogId DialogIdP
 }
 
 // NewCloseDialogRequest generates requests for CloseDialog
-func NewCloseDialogRequest(server string, dialogId DialogIdPath) (*http.Request, error) {
+func NewCloseDialogRequest(server string, dialogIDPath DialogIDPath) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -5038,23 +5038,23 @@ func NewCloseDialogRequest(server string, dialogId DialogIdPath) (*http.Request,
 }
 
 // NewDialogAddTagsRequest calls the generic DialogAddTags builder with application/json body
-func NewDialogAddTagsRequest(server string, dialogId DialogIdPath, body DialogAddTagsJSONRequestBody) (*http.Request, error) {
+func NewDialogAddTagsRequest(server string, dialogIDPath DialogIDPath, body DialogAddTagsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewDialogAddTagsRequestWithBody(server, dialogId, "application/json", bodyReader)
+	return NewDialogAddTagsRequestWithBody(server, dialogIDPath, "application/json", bodyReader)
 }
 
 // NewDialogAddTagsRequestWithBody generates requests for DialogAddTags with any type of body
-func NewDialogAddTagsRequestWithBody(server string, dialogId DialogIdPath, contentType string, body io.Reader) (*http.Request, error) {
+func NewDialogAddTagsRequestWithBody(server string, dialogIDPath DialogIDPath, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -5085,23 +5085,23 @@ func NewDialogAddTagsRequestWithBody(server string, dialogId DialogIdPath, conte
 }
 
 // NewDialogDeleteTagsRequest calls the generic DialogDeleteTags builder with application/json body
-func NewDialogDeleteTagsRequest(server string, dialogId DialogIdPath, body DialogDeleteTagsJSONRequestBody) (*http.Request, error) {
+func NewDialogDeleteTagsRequest(server string, dialogIDPath DialogIDPath, body DialogDeleteTagsJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewDialogDeleteTagsRequestWithBody(server, dialogId, "application/json", bodyReader)
+	return NewDialogDeleteTagsRequestWithBody(server, dialogIDPath, "application/json", bodyReader)
 }
 
 // NewDialogDeleteTagsRequestWithBody generates requests for DialogDeleteTags with any type of body
-func NewDialogDeleteTagsRequestWithBody(server string, dialogId DialogIdPath, contentType string, body io.Reader) (*http.Request, error) {
+func NewDialogDeleteTagsRequestWithBody(server string, dialogIDPath DialogIDPath, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -5132,12 +5132,12 @@ func NewDialogDeleteTagsRequestWithBody(server string, dialogId DialogIdPath, co
 }
 
 // NewUnassignDialogResponsibleRequest generates requests for UnassignDialogResponsible
-func NewUnassignDialogResponsibleRequest(server string, dialogId DialogIdPath) (*http.Request, error) {
+func NewUnassignDialogResponsibleRequest(server string, dialogIDPath DialogIDPath) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "dialog_id", runtime.ParamLocationPath, dialogIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -5235,12 +5235,12 @@ func NewUploadFileByUrlRequestWithBody(server string, contentType string, body i
 }
 
 // NewGetFileUrlRequest generates requests for GetFileUrl
-func NewGetFileUrlRequest(server string, id FileIdPath) (*http.Request, error) {
+func NewGetFileUrlRequest(server string, fileIDPath FileIDPath) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, fileIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -5269,23 +5269,23 @@ func NewGetFileUrlRequest(server string, id FileIdPath) (*http.Request, error) {
 }
 
 // NewUpdateFileMetadataRequest calls the generic UpdateFileMetadata builder with application/json body
-func NewUpdateFileMetadataRequest(server string, id FileIdPath, body UpdateFileMetadataJSONRequestBody) (*http.Request, error) {
+func NewUpdateFileMetadataRequest(server string, fileIDPath FileIDPath, body UpdateFileMetadataJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewUpdateFileMetadataRequestWithBody(server, id, "application/json", bodyReader)
+	return NewUpdateFileMetadataRequestWithBody(server, fileIDPath, "application/json", bodyReader)
 }
 
 // NewUpdateFileMetadataRequestWithBody generates requests for UpdateFileMetadata with any type of body
-func NewUpdateFileMetadataRequestWithBody(server string, id FileIdPath, contentType string, body io.Reader) (*http.Request, error) {
+func NewUpdateFileMetadataRequestWithBody(server string, fileIDPath FileIDPath, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, id)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "id", runtime.ParamLocationPath, fileIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -5594,9 +5594,9 @@ func NewListMessagesRequest(server string, params *ListMessagesParams) (*http.Re
 
 		}
 
-		if params.MessageID != nil {
+		if params.MessageIDs != nil {
 
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.MessageID); err != nil {
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.MessageIDs); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -5822,12 +5822,12 @@ func NewSendMessageRequestWithBody(server string, contentType string, body io.Re
 }
 
 // NewDeleteMessageRequest generates requests for DeleteMessage
-func NewDeleteMessageRequest(server string, messageId MessageIdPath) (*http.Request, error) {
+func NewDeleteMessageRequest(server string, messageIDPath MessageIDPath) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "message_id", runtime.ParamLocationPath, messageId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "message_id", runtime.ParamLocationPath, messageIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -5856,23 +5856,23 @@ func NewDeleteMessageRequest(server string, messageId MessageIdPath) (*http.Requ
 }
 
 // NewEditMessageRequest calls the generic EditMessage builder with application/json body
-func NewEditMessageRequest(server string, messageId MessageIdPath, body EditMessageJSONRequestBody) (*http.Request, error) {
+func NewEditMessageRequest(server string, messageIDPath MessageIDPath, body EditMessageJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewEditMessageRequestWithBody(server, messageId, "application/json", bodyReader)
+	return NewEditMessageRequestWithBody(server, messageIDPath, "application/json", bodyReader)
 }
 
 // NewEditMessageRequestWithBody generates requests for EditMessage with any type of body
-func NewEditMessageRequestWithBody(server string, messageId MessageIdPath, contentType string, body io.Reader) (*http.Request, error) {
+func NewEditMessageRequestWithBody(server string, messageIDPath MessageIDPath, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "message_id", runtime.ParamLocationPath, messageId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "message_id", runtime.ParamLocationPath, messageIDPath)
 	if err != nil {
 		return nil, err
 	}
@@ -6455,9 +6455,9 @@ type ClientWithResponsesInterface interface {
 	ListChatsWithResponse(ctx context.Context, params *ListChatsParams, reqEditors ...RequestEditorFn) (*ListChatsResp, error)
 
 	// CreateDialogWithBodyWithResponse request with any body
-	CreateDialogWithBodyWithResponse(ctx context.Context, chatId ChatIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDialogResp, error)
+	CreateDialogWithBodyWithResponse(ctx context.Context, chatIDPath ChatIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDialogResp, error)
 
-	CreateDialogWithResponse(ctx context.Context, chatId ChatIdPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDialogResp, error)
+	CreateDialogWithResponse(ctx context.Context, chatIDPath ChatIDPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDialogResp, error)
 
 	// ListCustomersWithResponse request
 	ListCustomersWithResponse(ctx context.Context, params *ListCustomersParams, reqEditors ...RequestEditorFn) (*ListCustomersResp, error)
@@ -6466,25 +6466,25 @@ type ClientWithResponsesInterface interface {
 	ListDialogsWithResponse(ctx context.Context, params *ListDialogsParams, reqEditors ...RequestEditorFn) (*ListDialogsResp, error)
 
 	// AssignDialogResponsibleWithBodyWithResponse request with any body
-	AssignDialogResponsibleWithBodyWithResponse(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AssignDialogResponsibleResp, error)
+	AssignDialogResponsibleWithBodyWithResponse(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AssignDialogResponsibleResp, error)
 
-	AssignDialogResponsibleWithResponse(ctx context.Context, dialogId DialogIdPath, body AssignDialogResponsibleJSONRequestBody, reqEditors ...RequestEditorFn) (*AssignDialogResponsibleResp, error)
+	AssignDialogResponsibleWithResponse(ctx context.Context, dialogIDPath DialogIDPath, body AssignDialogResponsibleJSONRequestBody, reqEditors ...RequestEditorFn) (*AssignDialogResponsibleResp, error)
 
 	// CloseDialogWithResponse request
-	CloseDialogWithResponse(ctx context.Context, dialogId DialogIdPath, reqEditors ...RequestEditorFn) (*CloseDialogResp, error)
+	CloseDialogWithResponse(ctx context.Context, dialogIDPath DialogIDPath, reqEditors ...RequestEditorFn) (*CloseDialogResp, error)
 
 	// DialogAddTagsWithBodyWithResponse request with any body
-	DialogAddTagsWithBodyWithResponse(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DialogAddTagsResp, error)
+	DialogAddTagsWithBodyWithResponse(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DialogAddTagsResp, error)
 
-	DialogAddTagsWithResponse(ctx context.Context, dialogId DialogIdPath, body DialogAddTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DialogAddTagsResp, error)
+	DialogAddTagsWithResponse(ctx context.Context, dialogIDPath DialogIDPath, body DialogAddTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DialogAddTagsResp, error)
 
 	// DialogDeleteTagsWithBodyWithResponse request with any body
-	DialogDeleteTagsWithBodyWithResponse(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DialogDeleteTagsResp, error)
+	DialogDeleteTagsWithBodyWithResponse(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DialogDeleteTagsResp, error)
 
-	DialogDeleteTagsWithResponse(ctx context.Context, dialogId DialogIdPath, body DialogDeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DialogDeleteTagsResp, error)
+	DialogDeleteTagsWithResponse(ctx context.Context, dialogIDPath DialogIDPath, body DialogDeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DialogDeleteTagsResp, error)
 
 	// UnassignDialogResponsibleWithResponse request
-	UnassignDialogResponsibleWithResponse(ctx context.Context, dialogId DialogIdPath, reqEditors ...RequestEditorFn) (*UnassignDialogResponsibleResp, error)
+	UnassignDialogResponsibleWithResponse(ctx context.Context, dialogIDPath DialogIDPath, reqEditors ...RequestEditorFn) (*UnassignDialogResponsibleResp, error)
 
 	// UploadFileWithBodyWithResponse request with any body
 	UploadFileWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UploadFileResp, error)
@@ -6495,12 +6495,12 @@ type ClientWithResponsesInterface interface {
 	UploadFileByUrlWithResponse(ctx context.Context, body UploadFileByUrlJSONRequestBody, reqEditors ...RequestEditorFn) (*UploadFileByUrlResp, error)
 
 	// GetFileUrlWithResponse request
-	GetFileUrlWithResponse(ctx context.Context, id FileIdPath, reqEditors ...RequestEditorFn) (*GetFileUrlResp, error)
+	GetFileUrlWithResponse(ctx context.Context, fileIDPath FileIDPath, reqEditors ...RequestEditorFn) (*GetFileUrlResp, error)
 
 	// UpdateFileMetadataWithBodyWithResponse request with any body
-	UpdateFileMetadataWithBodyWithResponse(ctx context.Context, id FileIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateFileMetadataResp, error)
+	UpdateFileMetadataWithBodyWithResponse(ctx context.Context, fileIDPath FileIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateFileMetadataResp, error)
 
-	UpdateFileMetadataWithResponse(ctx context.Context, id FileIdPath, body UpdateFileMetadataJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateFileMetadataResp, error)
+	UpdateFileMetadataWithResponse(ctx context.Context, fileIDPath FileIDPath, body UpdateFileMetadataJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateFileMetadataResp, error)
 
 	// ListMembersWithResponse request
 	ListMembersWithResponse(ctx context.Context, params *ListMembersParams, reqEditors ...RequestEditorFn) (*ListMembersResp, error)
@@ -6514,12 +6514,12 @@ type ClientWithResponsesInterface interface {
 	SendMessageWithResponse(ctx context.Context, body SendMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*SendMessageResp, error)
 
 	// DeleteMessageWithResponse request
-	DeleteMessageWithResponse(ctx context.Context, messageId MessageIdPath, reqEditors ...RequestEditorFn) (*DeleteMessageResp, error)
+	DeleteMessageWithResponse(ctx context.Context, messageIDPath MessageIDPath, reqEditors ...RequestEditorFn) (*DeleteMessageResp, error)
 
 	// EditMessageWithBodyWithResponse request with any body
-	EditMessageWithBodyWithResponse(ctx context.Context, messageId MessageIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EditMessageResp, error)
+	EditMessageWithBodyWithResponse(ctx context.Context, messageIDPath MessageIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EditMessageResp, error)
 
-	EditMessageWithResponse(ctx context.Context, messageId MessageIdPath, body EditMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*EditMessageResp, error)
+	EditMessageWithResponse(ctx context.Context, messageIDPath MessageIDPath, body EditMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*EditMessageResp, error)
 
 	// ListCommandsWithResponse request
 	ListCommandsWithResponse(ctx context.Context, params *ListCommandsParams, reqEditors ...RequestEditorFn) (*ListCommandsResp, error)
@@ -7170,16 +7170,16 @@ func (c *ClientWithResponses) ListChatsWithResponse(ctx context.Context, params 
 }
 
 // CreateDialogWithBodyWithResponse request with arbitrary body returning *CreateDialogResp
-func (c *ClientWithResponses) CreateDialogWithBodyWithResponse(ctx context.Context, chatId ChatIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDialogResp, error) {
-	rsp, err := c.CreateDialogWithBody(ctx, chatId, contentType, body, reqEditors...)
+func (c *ClientWithResponses) CreateDialogWithBodyWithResponse(ctx context.Context, chatIDPath ChatIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDialogResp, error) {
+	rsp, err := c.CreateDialogWithBody(ctx, chatIDPath, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseCreateDialogResp(rsp)
 }
 
-func (c *ClientWithResponses) CreateDialogWithResponse(ctx context.Context, chatId ChatIdPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDialogResp, error) {
-	rsp, err := c.CreateDialog(ctx, chatId, body, reqEditors...)
+func (c *ClientWithResponses) CreateDialogWithResponse(ctx context.Context, chatIDPath ChatIDPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDialogResp, error) {
+	rsp, err := c.CreateDialog(ctx, chatIDPath, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7205,16 +7205,16 @@ func (c *ClientWithResponses) ListDialogsWithResponse(ctx context.Context, param
 }
 
 // AssignDialogResponsibleWithBodyWithResponse request with arbitrary body returning *AssignDialogResponsibleResp
-func (c *ClientWithResponses) AssignDialogResponsibleWithBodyWithResponse(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AssignDialogResponsibleResp, error) {
-	rsp, err := c.AssignDialogResponsibleWithBody(ctx, dialogId, contentType, body, reqEditors...)
+func (c *ClientWithResponses) AssignDialogResponsibleWithBodyWithResponse(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*AssignDialogResponsibleResp, error) {
+	rsp, err := c.AssignDialogResponsibleWithBody(ctx, dialogIDPath, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseAssignDialogResponsibleResp(rsp)
 }
 
-func (c *ClientWithResponses) AssignDialogResponsibleWithResponse(ctx context.Context, dialogId DialogIdPath, body AssignDialogResponsibleJSONRequestBody, reqEditors ...RequestEditorFn) (*AssignDialogResponsibleResp, error) {
-	rsp, err := c.AssignDialogResponsible(ctx, dialogId, body, reqEditors...)
+func (c *ClientWithResponses) AssignDialogResponsibleWithResponse(ctx context.Context, dialogIDPath DialogIDPath, body AssignDialogResponsibleJSONRequestBody, reqEditors ...RequestEditorFn) (*AssignDialogResponsibleResp, error) {
+	rsp, err := c.AssignDialogResponsible(ctx, dialogIDPath, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7222,8 +7222,8 @@ func (c *ClientWithResponses) AssignDialogResponsibleWithResponse(ctx context.Co
 }
 
 // CloseDialogWithResponse request returning *CloseDialogResp
-func (c *ClientWithResponses) CloseDialogWithResponse(ctx context.Context, dialogId DialogIdPath, reqEditors ...RequestEditorFn) (*CloseDialogResp, error) {
-	rsp, err := c.CloseDialog(ctx, dialogId, reqEditors...)
+func (c *ClientWithResponses) CloseDialogWithResponse(ctx context.Context, dialogIDPath DialogIDPath, reqEditors ...RequestEditorFn) (*CloseDialogResp, error) {
+	rsp, err := c.CloseDialog(ctx, dialogIDPath, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7231,16 +7231,16 @@ func (c *ClientWithResponses) CloseDialogWithResponse(ctx context.Context, dialo
 }
 
 // DialogAddTagsWithBodyWithResponse request with arbitrary body returning *DialogAddTagsResp
-func (c *ClientWithResponses) DialogAddTagsWithBodyWithResponse(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DialogAddTagsResp, error) {
-	rsp, err := c.DialogAddTagsWithBody(ctx, dialogId, contentType, body, reqEditors...)
+func (c *ClientWithResponses) DialogAddTagsWithBodyWithResponse(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DialogAddTagsResp, error) {
+	rsp, err := c.DialogAddTagsWithBody(ctx, dialogIDPath, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseDialogAddTagsResp(rsp)
 }
 
-func (c *ClientWithResponses) DialogAddTagsWithResponse(ctx context.Context, dialogId DialogIdPath, body DialogAddTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DialogAddTagsResp, error) {
-	rsp, err := c.DialogAddTags(ctx, dialogId, body, reqEditors...)
+func (c *ClientWithResponses) DialogAddTagsWithResponse(ctx context.Context, dialogIDPath DialogIDPath, body DialogAddTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DialogAddTagsResp, error) {
+	rsp, err := c.DialogAddTags(ctx, dialogIDPath, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7248,16 +7248,16 @@ func (c *ClientWithResponses) DialogAddTagsWithResponse(ctx context.Context, dia
 }
 
 // DialogDeleteTagsWithBodyWithResponse request with arbitrary body returning *DialogDeleteTagsResp
-func (c *ClientWithResponses) DialogDeleteTagsWithBodyWithResponse(ctx context.Context, dialogId DialogIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DialogDeleteTagsResp, error) {
-	rsp, err := c.DialogDeleteTagsWithBody(ctx, dialogId, contentType, body, reqEditors...)
+func (c *ClientWithResponses) DialogDeleteTagsWithBodyWithResponse(ctx context.Context, dialogIDPath DialogIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DialogDeleteTagsResp, error) {
+	rsp, err := c.DialogDeleteTagsWithBody(ctx, dialogIDPath, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseDialogDeleteTagsResp(rsp)
 }
 
-func (c *ClientWithResponses) DialogDeleteTagsWithResponse(ctx context.Context, dialogId DialogIdPath, body DialogDeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DialogDeleteTagsResp, error) {
-	rsp, err := c.DialogDeleteTags(ctx, dialogId, body, reqEditors...)
+func (c *ClientWithResponses) DialogDeleteTagsWithResponse(ctx context.Context, dialogIDPath DialogIDPath, body DialogDeleteTagsJSONRequestBody, reqEditors ...RequestEditorFn) (*DialogDeleteTagsResp, error) {
+	rsp, err := c.DialogDeleteTags(ctx, dialogIDPath, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7265,8 +7265,8 @@ func (c *ClientWithResponses) DialogDeleteTagsWithResponse(ctx context.Context, 
 }
 
 // UnassignDialogResponsibleWithResponse request returning *UnassignDialogResponsibleResp
-func (c *ClientWithResponses) UnassignDialogResponsibleWithResponse(ctx context.Context, dialogId DialogIdPath, reqEditors ...RequestEditorFn) (*UnassignDialogResponsibleResp, error) {
-	rsp, err := c.UnassignDialogResponsible(ctx, dialogId, reqEditors...)
+func (c *ClientWithResponses) UnassignDialogResponsibleWithResponse(ctx context.Context, dialogIDPath DialogIDPath, reqEditors ...RequestEditorFn) (*UnassignDialogResponsibleResp, error) {
+	rsp, err := c.UnassignDialogResponsible(ctx, dialogIDPath, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7300,8 +7300,8 @@ func (c *ClientWithResponses) UploadFileByUrlWithResponse(ctx context.Context, b
 }
 
 // GetFileUrlWithResponse request returning *GetFileUrlResp
-func (c *ClientWithResponses) GetFileUrlWithResponse(ctx context.Context, id FileIdPath, reqEditors ...RequestEditorFn) (*GetFileUrlResp, error) {
-	rsp, err := c.GetFileUrl(ctx, id, reqEditors...)
+func (c *ClientWithResponses) GetFileUrlWithResponse(ctx context.Context, fileIDPath FileIDPath, reqEditors ...RequestEditorFn) (*GetFileUrlResp, error) {
+	rsp, err := c.GetFileUrl(ctx, fileIDPath, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7309,16 +7309,16 @@ func (c *ClientWithResponses) GetFileUrlWithResponse(ctx context.Context, id Fil
 }
 
 // UpdateFileMetadataWithBodyWithResponse request with arbitrary body returning *UpdateFileMetadataResp
-func (c *ClientWithResponses) UpdateFileMetadataWithBodyWithResponse(ctx context.Context, id FileIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateFileMetadataResp, error) {
-	rsp, err := c.UpdateFileMetadataWithBody(ctx, id, contentType, body, reqEditors...)
+func (c *ClientWithResponses) UpdateFileMetadataWithBodyWithResponse(ctx context.Context, fileIDPath FileIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateFileMetadataResp, error) {
+	rsp, err := c.UpdateFileMetadataWithBody(ctx, fileIDPath, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseUpdateFileMetadataResp(rsp)
 }
 
-func (c *ClientWithResponses) UpdateFileMetadataWithResponse(ctx context.Context, id FileIdPath, body UpdateFileMetadataJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateFileMetadataResp, error) {
-	rsp, err := c.UpdateFileMetadata(ctx, id, body, reqEditors...)
+func (c *ClientWithResponses) UpdateFileMetadataWithResponse(ctx context.Context, fileIDPath FileIDPath, body UpdateFileMetadataJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateFileMetadataResp, error) {
+	rsp, err := c.UpdateFileMetadata(ctx, fileIDPath, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7361,8 +7361,8 @@ func (c *ClientWithResponses) SendMessageWithResponse(ctx context.Context, body 
 }
 
 // DeleteMessageWithResponse request returning *DeleteMessageResp
-func (c *ClientWithResponses) DeleteMessageWithResponse(ctx context.Context, messageId MessageIdPath, reqEditors ...RequestEditorFn) (*DeleteMessageResp, error) {
-	rsp, err := c.DeleteMessage(ctx, messageId, reqEditors...)
+func (c *ClientWithResponses) DeleteMessageWithResponse(ctx context.Context, messageIDPath MessageIDPath, reqEditors ...RequestEditorFn) (*DeleteMessageResp, error) {
+	rsp, err := c.DeleteMessage(ctx, messageIDPath, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
@@ -7370,16 +7370,16 @@ func (c *ClientWithResponses) DeleteMessageWithResponse(ctx context.Context, mes
 }
 
 // EditMessageWithBodyWithResponse request with arbitrary body returning *EditMessageResp
-func (c *ClientWithResponses) EditMessageWithBodyWithResponse(ctx context.Context, messageId MessageIdPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EditMessageResp, error) {
-	rsp, err := c.EditMessageWithBody(ctx, messageId, contentType, body, reqEditors...)
+func (c *ClientWithResponses) EditMessageWithBodyWithResponse(ctx context.Context, messageIDPath MessageIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*EditMessageResp, error) {
+	rsp, err := c.EditMessageWithBody(ctx, messageIDPath, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
 	return ParseEditMessageResp(rsp)
 }
 
-func (c *ClientWithResponses) EditMessageWithResponse(ctx context.Context, messageId MessageIdPath, body EditMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*EditMessageResp, error) {
-	rsp, err := c.EditMessage(ctx, messageId, body, reqEditors...)
+func (c *ClientWithResponses) EditMessageWithResponse(ctx context.Context, messageIDPath MessageIDPath, body EditMessageJSONRequestBody, reqEditors ...RequestEditorFn) (*EditMessageResp, error) {
+	rsp, err := c.EditMessage(ctx, messageIDPath, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}

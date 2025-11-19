@@ -509,7 +509,7 @@ func TestListMessagesWithResponse(t *testing.T) {
 				SinceID:                  &sinceID,
 				UntilID:                  &untilID,
 				Limit:                    &limit,
-				MessageID:                &messageIds,
+				MessageIDs:               &messageIds,
 				ChatID:                   &chatID,
 				UserID:                   &userID,
 				ChannelType:              &channelType,
