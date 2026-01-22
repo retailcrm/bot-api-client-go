@@ -1007,6 +1007,8 @@ const (
 	SystemActionDialogAssign      SystemAction = "dialog_assign"
 	SystemActionDialogClosed      SystemAction = "dialog_closed"
 	SystemActionDialogOpened      SystemAction = "dialog_opened"
+	SystemActionDialogTagAdded    SystemAction = "dialog_tag_added"
+	SystemActionDialogTagRemoved  SystemAction = "dialog_tag_removed"
 	SystemActionDialogUnassign    SystemAction = "dialog_unassign"
 	SystemActionUserJoined        SystemAction = "user_joined"
 	SystemActionUserLeft          SystemAction = "user_left"
@@ -1020,6 +1022,8 @@ func (SystemAction) EnumValues() []string {
 		string(SystemActionDialogAssign),
 		string(SystemActionDialogClosed),
 		string(SystemActionDialogOpened),
+		string(SystemActionDialogTagAdded),
+		string(SystemActionDialogTagRemoved),
 		string(SystemActionDialogUnassign),
 		string(SystemActionUserJoined),
 		string(SystemActionUserLeft),

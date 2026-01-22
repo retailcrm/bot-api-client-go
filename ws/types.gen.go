@@ -609,7 +609,7 @@ type MemberStateSchema string
 // MessageSchema is a schema from the AsyncAPI specification required in messages
 type MessageSchema struct {
 	// Description: System action of the message
-	Action *MessageActionSchema `json:"action,omitempty" validate:"omitempty,oneof='dialog_opened' 'dialog_closed' 'user_joined' 'user_left' 'dialog_assign' 'customer_blocked' 'customer_unblocked' 'dialog_unassign'"`
+	Action *MessageActionSchema `json:"action,omitempty" validate:"omitempty,oneof='dialog_opened' 'dialog_closed' 'user_joined' 'user_left' 'dialog_assign' 'customer_blocked' 'customer_unblocked' 'dialog_unassign' 'dialog_tag_added' 'dialog_tag_removed'"`
 
 	// Description: Actions available for this message
 	Actions []string `json:"actions,omitempty"`
@@ -694,7 +694,7 @@ type MessageDataSchema struct {
 // MessagePropertyFromMessageDataSchema is a schema from the AsyncAPI specification required in messages
 type MessagePropertyFromMessageDataSchema struct {
 	// Description: System action of the message
-	Action *MessageActionSchema `json:"action,omitempty" validate:"omitempty,oneof='dialog_opened' 'dialog_closed' 'user_joined' 'user_left' 'dialog_assign' 'customer_blocked' 'customer_unblocked' 'dialog_unassign'"`
+	Action *MessageActionSchema `json:"action,omitempty" validate:"omitempty,oneof='dialog_opened' 'dialog_closed' 'user_joined' 'user_left' 'dialog_assign' 'customer_blocked' 'customer_unblocked' 'dialog_unassign' 'dialog_tag_added' 'dialog_tag_removed'"`
 
 	// Description: Actions available for this message
 	Actions []string    `json:"actions,omitempty"`
