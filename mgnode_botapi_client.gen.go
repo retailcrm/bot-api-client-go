@@ -1688,9 +1688,9 @@ type CreateCommandRequestBody struct {
 	Name string `json:"name,omitempty"`
 }
 
-// Customer Dialog object
+// Customer Customer object
 type Customer struct {
-	Avatar    *string `json:"avatar,omitempty"`
+	AvatarURL *string `json:"avatar_url,omitempty"`
 	ChannelID *int64  `json:"channel_id,omitempty"`
 	Country   *string `json:"country,omitempty"`
 
