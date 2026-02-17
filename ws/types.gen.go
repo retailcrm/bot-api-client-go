@@ -651,6 +651,9 @@ type MessageSchema struct {
 	// Description: Quoted message data
 	Quote *MessageQuoteSchema `json:"quote,omitempty"`
 
+	// Description: Reaction emojis added to a message
+	Reactions []MessageReactionSchema `json:"reactions,omitempty"`
+
 	// Description: Information about the person responsible for the message
 	Responsible *UserRefSchema `json:"responsible,omitempty"`
 
@@ -742,6 +745,9 @@ type MessagePropertyFromMessageDataSchema struct {
 
 	// Description: Quoted message data
 	Quote *MessageQuoteSchema `json:"quote,omitempty"`
+
+	// Description: Reaction emojis added to a message
+	Reactions []MessageReactionSchema `json:"reactions,omitempty"`
 
 	// Description: Information about the person responsible for the message
 	Responsible *UserRefSchema `json:"responsible,omitempty"`
@@ -985,6 +991,19 @@ type MessageQuoteSchema struct {
 
 	// Description: Message type
 	Type *MessageTypeSchema `json:"type,omitempty" validate:"omitempty,oneof='text' 'system' 'command' 'order' 'product' 'file' 'image' 'audio'"`
+}
+
+// MessageReactionSchema is a schema from the AsyncAPI specification required in messages
+// Description: The object of the reaction added to the message
+type MessageReactionSchema struct {
+	// Description: Emoji reaction content
+	Content string `json:"content"`
+
+	// Description: Reaction creation timestamp
+	CreatedAt time.Time `json:"created_at"`
+
+	// Description: ID of the user who added the reaction
+	UserId *int64 `json:"user_id,omitempty"`
 }
 
 // MessageScopeSchema is a schema from the AsyncAPI specification required in messages
