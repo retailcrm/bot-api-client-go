@@ -2346,7 +2346,7 @@ type SendMessageRequestBody struct {
 	// Items File attachments (required for file, audio and image messages)
 	Items *[]struct {
 		// Caption Caption for the file
-		Caption *string `binding:"min=1,max=1024" json:"caption,omitempty"`
+		Caption string `binding:"min=1,max=1024" json:"caption"`
 
 		// ID Unique identifier of the file
 		ID openapi_types.UUID `json:"id"`
@@ -2801,7 +2801,7 @@ type EditMessageRequest struct {
 	// Items File attachments (required for file, audio and image messages)
 	Items *[]struct {
 		// Caption Caption for the file
-		Caption *string `binding:"min=1,max=1024" json:"caption,omitempty"`
+		Caption string `binding:"min=1,max=1024" json:"caption"`
 
 		// ID Unique identifier of the file
 		ID openapi_types.UUID `json:"id"`
@@ -3166,7 +3166,7 @@ type EditMessageJSONBody struct {
 	// Items File attachments (required for file, audio and image messages)
 	Items *[]struct {
 		// Caption Caption for the file
-		Caption *string `binding:"min=1,max=1024" json:"caption,omitempty"`
+		Caption string `binding:"min=1,max=1024" json:"caption"`
 
 		// ID Unique identifier of the file
 		ID openapi_types.UUID `json:"id"`
