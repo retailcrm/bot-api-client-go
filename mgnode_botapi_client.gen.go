@@ -2818,6 +2818,9 @@ type EditMessageRequest struct {
 
 	// QuoteMessageID ID of the quoted message (required for text messages only)
 	QuoteMessageID int64 `json:"quote_message_id,omitempty"`
+
+	// TransportAttachments Attachments specific to a transport layer
+	TransportAttachments *MessageTransportAttachments `json:"transport_attachments"`
 }
 
 // SendMessageRequest Represents the payload of a message, including content, attachments, and related metadata depending on the message type
@@ -3183,6 +3186,9 @@ type EditMessageJSONBody struct {
 
 	// QuoteMessageID ID of the quoted message (required for text messages only)
 	QuoteMessageID int64 `json:"quote_message_id,omitempty"`
+
+	// TransportAttachments Attachments specific to a transport layer
+	TransportAttachments *MessageTransportAttachments `json:"transport_attachments"`
 }
 
 // ListCommandsParams defines parameters for ListCommands.
