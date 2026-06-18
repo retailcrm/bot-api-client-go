@@ -1,6 +1,6 @@
 module github.com/retailcrm/bot-api-client-go
 
-go 1.23
+go 1.25.0
 
 require (
 	github.com/google/uuid v1.6.0
@@ -8,7 +8,7 @@ require (
 	github.com/lerenn/asyncapi-codegen v0.45.3
 	github.com/oapi-codegen/runtime v1.1.2
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/time v0.5.0
+	golang.org/x/time v0.15.0
 )
 
 require (

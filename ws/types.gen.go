@@ -591,6 +591,10 @@ type ImageMessageSettingSchema struct {
 	Reaction *ChannelFeatureSchema `json:"reaction,omitempty" validate:"omitempty,oneof='none' 'receive' 'send' 'both'"`
 }
 
+// MarkupFormatSchema is a schema from the AsyncAPI specification required in messages
+// Description: Supported text markup format
+type MarkupFormatSchema string
+
 // MemberSchema is a schema from the AsyncAPI specification required in messages
 // Description: Chat participant
 type MemberSchema struct {
@@ -686,6 +690,9 @@ type MessageAdditionalSchema struct {
 
 	// Description: Message edit date
 	EditedAt *time.Time `json:"edited_at,omitempty"`
+
+	// Description: Template code for a template message
+	TemplateCode *string `json:"template_code,omitempty"`
 }
 
 // MessageDataSchema is a schema from the AsyncAPI specification required in messages
@@ -757,6 +764,9 @@ type MessagePropertyFromMessageDataSchema struct {
 
 	// Description: Message status
 	Status MessageStatusSchema `json:"status" validate:"oneof='undefined' 'received' 'sending' 'sent' 'failed' 'seen'"`
+
+	// Description: Template code for a template message
+	TemplateCode *string `json:"template_code,omitempty"`
 
 	// Description: Message creation time
 	Time time.Time `json:"time"`
@@ -1193,6 +1203,9 @@ type TextMessageSettingSchema struct {
 
 	// Description: Support for operations with messages of this type
 	Editing *ChannelFeatureSchema `json:"editing,omitempty" validate:"omitempty,oneof='none' 'receive' 'send' 'both'"`
+
+	// Description: Supported text markup formats. Empty or absent list means markup is not supported.
+	MarkupFormats []MarkupFormatSchema `json:"markup_formats,omitempty"`
 
 	// Description: Maximum number of characters in a text message
 	MaxCharsCount *uint16 `json:"max_chars_count,omitempty"`

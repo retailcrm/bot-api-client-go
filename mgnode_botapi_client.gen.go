@@ -487,6 +487,51 @@ func (v *FileType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Defines values for MarkupFormat.
+const (
+	MarkupFormatBlockMonospace  MarkupFormat = "block_monospace"
+	MarkupFormatBold            MarkupFormat = "bold"
+	MarkupFormatInlineMonospace MarkupFormat = "inline_monospace"
+	MarkupFormatItalic          MarkupFormat = "italic"
+	MarkupFormatLink            MarkupFormat = "link"
+	MarkupFormatStrikethrough   MarkupFormat = "strikethrough"
+	MarkupFormatUnderline       MarkupFormat = "underline"
+)
+
+// EnumValues returns all valid values for MarkupFormat.
+func (MarkupFormat) EnumValues() []string {
+	return []string{
+		string(MarkupFormatBlockMonospace),
+		string(MarkupFormatBold),
+		string(MarkupFormatInlineMonospace),
+		string(MarkupFormatItalic),
+		string(MarkupFormatLink),
+		string(MarkupFormatStrikethrough),
+		string(MarkupFormatUnderline),
+	}
+}
+
+// Validate validates the value of MarkupFormat.
+func (v MarkupFormat) ValidateEnum() error {
+	for _, value := range v.EnumValues() {
+		if string(v) == value {
+			return nil
+		}
+	}
+	return fmt.Errorf("invalid value for MarkupFormat: %v", v)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for MarkupFormat.
+func (v *MarkupFormat) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return &json.UnmarshalTypeError{Value: err.Error()}
+	}
+
+	*v = MarkupFormat(s)
+	return nil
+}
+
 // Defines values for MemberState.
 const (
 	MemberStateActive    MemberState = "active"
@@ -1882,6 +1927,9 @@ type LastUserMessage struct {
 	ID int64 `json:"id"`
 }
 
+// MarkupFormat Supported text markup format
+type MarkupFormat string
+
 // Member A participant in the chat, representing a user and their current membership status
 type Member struct {
 	// IsAuthor Indicates whether the member is the author (creator) of the chat
@@ -1955,6 +2003,9 @@ type Message struct {
 
 	// Status Current status of the message
 	Status MessageStatus `json:"status"`
+
+	// TemplateCode Template code for a template message
+	TemplateCode *string `json:"template_code,omitempty"`
 
 	// Time Timestamp when the message was created
 	Time DateTimeRFC3339 `json:"time"`
@@ -2085,6 +2136,9 @@ type MessageListResponseItem struct {
 
 	// Status Current status of the message
 	Status MessageStatus `json:"status"`
+
+	// TemplateCode Template code for a template message
+	TemplateCode *string `json:"template_code,omitempty"`
 
 	// Time Timestamp when the message was created
 	Time DateTimeRFC3339 `json:"time"`
@@ -2461,6 +2515,9 @@ type TextMessageSetting struct {
 
 	// Editing Support for operation with messages of the given type
 	Editing ChannelFeature `json:"editing,omitempty"`
+
+	// MarkupFormats Supported text markup formats. Empty or absent list means markup is not supported.
+	MarkupFormats []MarkupFormat `json:"markup_formats,omitempty"`
 
 	// MaxCharsCount Maximum number of characters in a text message
 	MaxCharsCount *uint16 `json:"max_chars_count,omitempty"`
