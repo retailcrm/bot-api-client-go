@@ -864,7 +864,7 @@ func TestDialogAddTagsWithResponse(t *testing.T) {
 	resp, err := client.DialogAddTagsWithResponse(context.Background(), 123, DialogAddTagsJSONRequestBody{
 		Tags: []struct {
 			ColorCode *ColorCode `binding:"omitempty,enum-valid" json:"color_code,omitempty"`
-			Name      string     `binding:"required,min=1,max=255" json:"name"`
+			Name      string     `binding:"required,min=1,max=255" json:"name" mod:"trim,escape"`
 		}{
 			{Name: "tag1"},
 			{Name: "tag2"},
@@ -895,7 +895,7 @@ func TestDialogDeleteTagsWithResponse(t *testing.T) {
 
 	resp, err := client.DialogDeleteTagsWithResponse(context.Background(), 123, DialogDeleteTagsJSONRequestBody{
 		Tags: []struct {
-			Name string `binding:"required,min=1,max=255" json:"name"`
+			Name string `binding:"required,min=1,max=255" json:"name" mod:"trim,escape"`
 		}{
 			{Name: "tag1"},
 		},

@@ -532,45 +532,6 @@ func (v *MarkupFormat) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Defines values for MemberState.
-const (
-	MemberStateActive    MemberState = "active"
-	MemberStateKicked    MemberState = "kicked"
-	MemberStateLeaved    MemberState = "leaved"
-	MemberStateUndefined MemberState = "undefined"
-)
-
-// EnumValues returns all valid values for MemberState.
-func (MemberState) EnumValues() []string {
-	return []string{
-		string(MemberStateActive),
-		string(MemberStateKicked),
-		string(MemberStateLeaved),
-		string(MemberStateUndefined),
-	}
-}
-
-// Validate validates the value of MemberState.
-func (v MemberState) ValidateEnum() error {
-	for _, value := range v.EnumValues() {
-		if string(v) == value {
-			return nil
-		}
-	}
-	return fmt.Errorf("invalid value for MemberState: %v", v)
-}
-
-// UnmarshalJSON implements the json.Unmarshaler interface for MemberState.
-func (v *MemberState) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
-		return &json.UnmarshalTypeError{Value: err.Error()}
-	}
-
-	*v = MemberState(s)
-	return nil
-}
-
 // Defines values for MessageAction.
 const (
 	MessageActionDelete MessageAction = "delete"
@@ -1555,9 +1516,6 @@ type Chat struct {
 	// LastUserMessage The most recent message sent by a user in the chat
 	LastUserMessage *LastUserMessage `json:"last_user_message,omitempty"`
 
-	// Members List of chat participants
-	Members *Members `json:"members,omitempty"`
-
 	// Name Display name of the chat
 	Name *string `json:"name,omitempty"`
 
@@ -1648,9 +1606,6 @@ type ChatsListResponseItem struct {
 	// LastUserMessage The most recent message sent by a user in the chat
 	LastUserMessage *LastUserMessage `json:"last_user_message,omitempty"`
 
-	// Members List of chat participants
-	Members *Members `json:"members,omitempty"`
-
 	// Name Display name of the chat
 	Name *string `json:"name,omitempty"`
 
@@ -1718,7 +1673,7 @@ type CommandCreate struct {
 // Cost Represents a monetary value with its corresponding currency
 type Cost struct {
 	// Currency Currency code
-	Currency string `binding:"required,currency" json:"currency"`
+	Currency string `binding:"required,currency" json:"currency" mod:"trim,escape"`
 
 	// Value Numerical value of the cost
 	Value float64 `binding:"gte=0" json:"value"`
@@ -1727,10 +1682,10 @@ type Cost struct {
 // CreateCommandRequestBody Represents a request body for creating a new command
 type CreateCommandRequestBody struct {
 	// Description Human-readable description of the command's purpose or behavior
-	Description string `binding:"required,min=0,max=64" json:"description"`
+	Description string `binding:"required,min=0,max=64" json:"description" mod:"trim,escape"`
 
 	// Name Unique identifier for the command
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" mod:"trim,escape"`
 }
 
 // Customer Customer object
@@ -1929,24 +1884,6 @@ type LastUserMessage struct {
 
 // MarkupFormat Supported text markup format
 type MarkupFormat string
-
-// Member A participant in the chat, representing a user and their current membership status
-type Member struct {
-	// IsAuthor Indicates whether the member is the author (creator) of the chat
-	IsAuthor bool `json:"is_author"`
-
-	// State The current state of the member in the chat
-	State MemberState `json:"state"`
-
-	// User Information about the user who is a member of the chat
-	User Actor `json:"user"`
-}
-
-// MemberState The current state of the member in the chat
-type MemberState string
-
-// Members List of participants involved in the chat
-type Members = []Member
 
 // Message Message object representing a single chat message
 type Message struct {
@@ -2177,26 +2114,26 @@ type MessageOrder struct {
 	Items []MessageOrderItem `json:"items,omitempty"`
 
 	// Number Order number
-	Number string `binding:"max=255" json:"number,omitempty"`
+	Number string `binding:"max=255" json:"number,omitempty" mod:"trim,escape"`
 
 	// Payments Payments array
 	Payments []MessageOrderPayment `json:"payments,omitempty"`
 	Status   *MessageOrderStatus   `json:"status,omitempty"`
 
 	// Url Order URL
-	Url string `binding:"max=2048" json:"url,omitempty"`
+	Url string `binding:"max=2048" json:"url,omitempty" mod:"trim,escape"`
 }
 
 // MessageOrderDelivery Order delivery information
 type MessageOrderDelivery struct {
 	// Address Delivery address
-	Address string `json:"address,omitempty"`
+	Address string `json:"address,omitempty" mod:"trim,escape"`
 
 	// Comment Delivery comment
-	Comment string `json:"comment,omitempty"`
+	Comment string `json:"comment,omitempty" mod:"trim,escape"`
 
 	// Name Delivery method name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" mod:"trim,escape"`
 
 	// Price Represents a monetary value with its corresponding currency
 	Price *Cost `json:"price,omitempty"`
@@ -2208,17 +2145,17 @@ type MessageOrderItem struct {
 	ExternalID int64 `json:"external_id,omitempty"`
 
 	// Img Product image
-	Img string `binding:"max=2048" json:"img,omitempty"`
+	Img string `binding:"max=2048" json:"img,omitempty" mod:"trim,escape"`
 
 	// Name Product name
-	Name string `binding:"max=255" json:"name,omitempty"`
+	Name string `binding:"max=255" json:"name,omitempty" mod:"trim,escape"`
 
 	// Price Represents a monetary value with its corresponding currency
 	Price    *Cost    `json:"price,omitempty"`
 	Quantity Quantity `json:"quantity,omitempty"`
 
 	// Url Product URL
-	Url string `binding:"max=2048" json:"url,omitempty"`
+	Url string `binding:"max=2048" json:"url,omitempty" mod:"trim,escape"`
 }
 
 // MessageOrderPayment Order payment information
@@ -2227,7 +2164,7 @@ type MessageOrderPayment struct {
 	Amount *Cost `json:"amount,omitempty"`
 
 	// Name Payment name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" mod:"trim,escape"`
 
 	// Status Order payment status
 	Status *MessageOrderPaymentStatus `json:"status,omitempty"`
@@ -2236,7 +2173,7 @@ type MessageOrderPayment struct {
 // MessageOrderPaymentStatus Order payment status
 type MessageOrderPaymentStatus struct {
 	// Name Payment name
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" mod:"trim,escape"`
 
 	// Payed Payment execution indicator
 	Payed *bool `json:"payed,omitempty"`
@@ -2247,7 +2184,7 @@ type MessageOrderStatus struct {
 	Code MessageOrderStatusCode `binding:"enum-valid" json:"code,omitempty"`
 
 	// Name Status name
-	Name string `binding:"max=255" json:"name,omitempty"`
+	Name string `binding:"max=255" json:"name,omitempty" mod:"trim,escape"`
 }
 
 // MessageOrderStatusCode Status code
@@ -2256,7 +2193,7 @@ type MessageOrderStatusCode string
 // MessageProduct Describes a product mentioned in a message
 type MessageProduct struct {
 	// Article Product description
-	Article string `binding:"max=128" json:"article,omitempty"`
+	Article string `binding:"max=128" json:"article,omitempty" mod:"trim,escape"`
 
 	// Cost Represents a monetary value with its corresponding currency
 	Cost *Cost `json:"cost,omitempty"`
@@ -2265,16 +2202,16 @@ type MessageProduct struct {
 	ID uint64 `json:"id"`
 
 	// Img Product image URL
-	Img string `binding:"max=2048" json:"img,omitempty"`
+	Img string `binding:"max=2048" json:"img,omitempty" mod:"trim,escape"`
 
 	// Name Product name
-	Name string `binding:"required,min=1,max=255" json:"name"`
+	Name string `binding:"required,min=1,max=255" json:"name" mod:"trim,escape"`
 
 	// Unit Units of measure of the product
-	Unit string `binding:"max=16" json:"unit"`
+	Unit string `binding:"max=16" json:"unit" mod:"trim,escape"`
 
 	// Url Product URL
-	Url string `binding:"max=2048" json:"url,omitempty"`
+	Url string `binding:"max=2048" json:"url,omitempty" mod:"trim,escape"`
 }
 
 // MessageScope Message scope
@@ -2331,7 +2268,7 @@ type ProductMessageSetting struct {
 // Quantity Quantity
 type Quantity struct {
 	// Unit Units of measure
-	Unit string `binding:"max=16" json:"unit,omitempty"`
+	Unit string `binding:"max=16" json:"unit,omitempty" mod:"trim,escape"`
 
 	// Value Quantitative value
 	Value float64 `binding:"gte=0" json:"value,omitempty"`
@@ -2395,12 +2332,12 @@ type SendMessageRequestBody struct {
 	ChatID int64 `binding:"required" json:"chat_id"`
 
 	// Content Message text content (required for text messages only)
-	Content *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty" mod:"trim,escape"`
 
 	// Items File attachments (required for file, audio and image messages)
 	Items *[]struct {
 		// Caption Caption for the file
-		Caption string `binding:"min=1,max=1024" json:"caption"`
+		Caption string `binding:"min=1,max=1024" json:"caption" mod:"trim,escape"`
 
 		// ID Unique identifier of the file
 		ID openapi_types.UUID `json:"id"`
@@ -2410,7 +2347,7 @@ type SendMessageRequestBody struct {
 	MassCommunication *bool `json:"mass_communication,omitempty"`
 
 	// Note Note or description for the file (required for file, audio and image messages)
-	Note *string `json:"note,omitempty"`
+	Note *string `json:"note,omitempty" mod:"trim,escape"`
 
 	// Order Order data (required for order messages only)
 	Order *MessageOrder `json:"order,omitempty"`
@@ -2462,10 +2399,10 @@ type StatusSetting struct {
 // Suggestion Quick response suggestion
 type Suggestion struct {
 	// Payload Quick response payload
-	Payload string `json:"payload,omitempty"`
+	Payload string `json:"payload,omitempty" mod:"trim,escape"`
 
 	// Title Quick response name
-	Title string         `json:"title,omitempty"`
+	Title string         `json:"title,omitempty" mod:"trim,escape"`
 	Type  SuggestionType `binding:"enum-valid" json:"type,omitempty"`
 }
 
@@ -2532,10 +2469,10 @@ type TextMessageSetting struct {
 // UpdateCommandRequestBody Represents a request body for updating a new command
 type UpdateCommandRequestBody struct {
 	// Description Human-readable description of the command's purpose or behavior
-	Description string `binding:"omitempty,min=0,max=64" json:"description"`
+	Description string `binding:"omitempty,min=0,max=64" json:"description" mod:"trim,escape"`
 
 	// Name Unique identifier for the command
-	Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty" mod:"trim,escape"`
 }
 
 // UserListResponseItem User object containing profile data, activity status and timestamps
@@ -2829,7 +2766,7 @@ type DialogAddTagsRequest struct {
 		ColorCode *ColorCode `binding:"omitempty,enum-valid" json:"color_code,omitempty"`
 
 		// Name Name of the tag
-		Name string `binding:"required,min=1,max=255" json:"name"`
+		Name string `binding:"required,min=1,max=255" json:"name" mod:"trim,escape"`
 	} `binding:"required,min=1,dive" json:"tags"`
 }
 
@@ -2837,7 +2774,7 @@ type DialogAddTagsRequest struct {
 type DialogDeleteTagsRequest struct {
 	Tags []struct {
 		// Name Name of the tag to delete
-		Name string `binding:"required,min=1,max=255" json:"name"`
+		Name string `binding:"required,min=1,max=255" json:"name" mod:"trim,escape"`
 	} `binding:"required,min=1,dive" json:"tags"`
 }
 
@@ -2853,19 +2790,19 @@ type DialogResponsibleRequest struct {
 // EditMessageRequest Represents the payload of a message, including content, attachments, and related metadata depending on the message type
 type EditMessageRequest struct {
 	// Content Message text content (required for text messages only)
-	Content *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty" mod:"trim,escape"`
 
 	// Items File attachments (required for file, audio and image messages)
 	Items *[]struct {
 		// Caption Caption for the file
-		Caption string `binding:"min=1,max=1024" json:"caption"`
+		Caption string `binding:"min=1,max=1024" json:"caption" mod:"trim,escape"`
 
 		// ID Unique identifier of the file
 		ID openapi_types.UUID `json:"id"`
 	} `json:"items,omitempty"`
 
 	// Note Note or description for the file (required for file, audio and image messages)
-	Note *string `json:"note,omitempty"`
+	Note *string `json:"note,omitempty" mod:"trim,escape"`
 
 	// Order Order data (required for order messages only)
 	Order *MessageOrder `json:"order,omitempty"`
@@ -2886,10 +2823,10 @@ type SendMessageRequest = SendMessageRequestBody
 // UpdateBotRequest defines model for UpdateBotRequest.
 type UpdateBotRequest struct {
 	// AvatarUrl URL of bot avatar
-	AvatarUrl *string `binding:"omitempty,url" json:"avatar_url"`
+	AvatarUrl *string `binding:"omitempty,url" json:"avatar_url" mod:"trim,escape"`
 
 	// Name Bot name
-	Name string `binding:"omitempty,min=0,max=255" json:"name"`
+	Name string `binding:"omitempty,min=0,max=255" json:"name" mod:"trim,escape"`
 
 	// Roles Bot role types array
 	Roles Roles `binding:"omitempty,enum-valid" json:"roles,omitempty"`
@@ -2898,7 +2835,7 @@ type UpdateBotRequest struct {
 // UpdateFileMetadataRequest defines model for UpdateFileMetadataRequest.
 type UpdateFileMetadataRequest struct {
 	// Transcription Updated transcription text associated with the file
-	Transcription string `json:"transcription"`
+	Transcription string `json:"transcription" mod:"trim,escape"`
 
 	// TranscriptionStatus Current status of the file transcription process
 	TranscriptionStatus *FileTranscriptionStatus `binding:"oneof=in_progress ready error" json:"transcription_status,omitempty"`
@@ -2907,7 +2844,7 @@ type UpdateFileMetadataRequest struct {
 // UploadFileByUrlRequest defines model for UploadFileByUrlRequest.
 type UploadFileByUrlRequest struct {
 	// Url The URL of the file to download and upload
-	Url string `binding:"web_url" json:"url"`
+	Url string `binding:"web_url" json:"url" mod:"trim,escape"`
 }
 
 // ListBotsParams defines parameters for ListBots.
@@ -2997,7 +2934,7 @@ type ListChatsParams struct {
 	CustomerID *CustomerID `binding:"omitempty,min=1" form:"customer_id,omitempty" json:"customer_id,omitempty"`
 
 	// CustomerExternalIDQuery Filter by external customer ID
-	CustomerExternalIDQuery *CustomerExternalIDQuery `binding:"omitempty,min=1" form:"customer_external_id,omitempty" json:"customer_external_id,omitempty"`
+	CustomerExternalIDQuery *CustomerExternalIDQuery `binding:"omitempty,min=1" form:"customer_external_id,omitempty" json:"customer_external_id,omitempty" mod:"trim,escape"`
 
 	// IncludeMassCommunication Whether to include mass communication chats/messages
 	IncludeMassCommunication *IncludeMassCommunicationQuery `binding:"omitempty,enum-valid" form:"include_mass_communication,omitempty" json:"include_mass_communication,omitempty"`
@@ -3039,7 +2976,7 @@ type ListCustomersParams struct {
 	ChannelType *ChannelTypeSingleQuery `binding:"omitempty,enum-valid" form:"channel_type,omitempty" json:"channel_type,omitempty"`
 
 	// ExternalID Filter by external identifier
-	ExternalID *ExternalID `form:"external_id,omitempty" json:"external_id,omitempty"`
+	ExternalID *ExternalID `form:"external_id,omitempty" json:"external_id,omitempty" mod:"trim,escape"`
 }
 
 // ListDialogsParams defines parameters for ListDialogs.
@@ -3098,7 +3035,7 @@ type DialogAddTagsJSONBody struct {
 		ColorCode *ColorCode `binding:"omitempty,enum-valid" json:"color_code,omitempty"`
 
 		// Name Name of the tag
-		Name string `binding:"required,min=1,max=255" json:"name"`
+		Name string `binding:"required,min=1,max=255" json:"name" mod:"trim,escape"`
 	} `binding:"required,min=1,dive" json:"tags"`
 }
 
@@ -3106,7 +3043,7 @@ type DialogAddTagsJSONBody struct {
 type DialogDeleteTagsJSONBody struct {
 	Tags []struct {
 		// Name Name of the tag to delete
-		Name string `binding:"required,min=1,max=255" json:"name"`
+		Name string `binding:"required,min=1,max=255" json:"name" mod:"trim,escape"`
 	} `binding:"required,min=1,dive" json:"tags"`
 }
 
@@ -3119,13 +3056,13 @@ type UploadFileMultipartBody struct {
 // UploadFileByUrlJSONBody defines parameters for UploadFileByUrl.
 type UploadFileByUrlJSONBody struct {
 	// Url The URL of the file to download and upload
-	Url string `binding:"web_url" json:"url"`
+	Url string `binding:"web_url" json:"url" mod:"trim,escape"`
 }
 
 // UpdateFileMetadataJSONBody defines parameters for UpdateFileMetadata.
 type UpdateFileMetadataJSONBody struct {
 	// Transcription Updated transcription text associated with the file
-	Transcription string `json:"transcription"`
+	Transcription string `json:"transcription" mod:"trim,escape"`
 
 	// TranscriptionStatus Current status of the file transcription process
 	TranscriptionStatus *FileTranscriptionStatus `binding:"oneof=in_progress ready error" json:"transcription_status,omitempty"`
@@ -3221,19 +3158,19 @@ type ListMessagesParamsScope string
 // EditMessageJSONBody defines parameters for EditMessage.
 type EditMessageJSONBody struct {
 	// Content Message text content (required for text messages only)
-	Content *string `json:"content,omitempty"`
+	Content *string `json:"content,omitempty" mod:"trim,escape"`
 
 	// Items File attachments (required for file, audio and image messages)
 	Items *[]struct {
 		// Caption Caption for the file
-		Caption string `binding:"min=1,max=1024" json:"caption"`
+		Caption string `binding:"min=1,max=1024" json:"caption" mod:"trim,escape"`
 
 		// ID Unique identifier of the file
 		ID openapi_types.UUID `json:"id"`
 	} `json:"items,omitempty"`
 
 	// Note Note or description for the file (required for file, audio and image messages)
-	Note *string `json:"note,omitempty"`
+	Note *string `json:"note,omitempty" mod:"trim,escape"`
 
 	// Order Order data (required for order messages only)
 	Order *MessageOrder `json:"order,omitempty"`
@@ -3269,7 +3206,7 @@ type ListCommandsParams struct {
 	Until *UntilQuery `form:"until,omitempty" json:"until,omitempty"`
 
 	// Name Filter commands by name
-	Name *CommandNameQuery `binding:"omitempty,max=32,command_name" form:"name,omitempty" json:"name,omitempty"`
+	Name *CommandNameQuery `binding:"omitempty,max=32,command_name" form:"name,omitempty" json:"name,omitempty" mod:"trim,escape"`
 }
 
 // CreateOrUpdateCommandJSONBody defines parameters for CreateOrUpdateCommand.
@@ -3280,10 +3217,10 @@ type CreateOrUpdateCommandJSONBody struct {
 // UpdateBotJSONBody defines parameters for UpdateBot.
 type UpdateBotJSONBody struct {
 	// AvatarUrl URL of bot avatar
-	AvatarUrl *string `binding:"omitempty,url" json:"avatar_url"`
+	AvatarUrl *string `binding:"omitempty,url" json:"avatar_url" mod:"trim,escape"`
 
 	// Name Bot name
-	Name string `binding:"omitempty,min=0,max=255" json:"name"`
+	Name string `binding:"omitempty,min=0,max=255" json:"name" mod:"trim,escape"`
 
 	// Roles Bot role types array
 	Roles Roles `binding:"omitempty,enum-valid" json:"roles,omitempty"`
@@ -3316,16 +3253,16 @@ type ListUsersParams struct {
 	Online *UserOnlineQuery `binding:"omitempty,enum-valid" form:"online,omitempty" json:"online,omitempty"`
 
 	// ExternalID Filter by external identifier
-	ExternalID *ExternalID `form:"external_id,omitempty" json:"external_id,omitempty"`
+	ExternalID *ExternalID `form:"external_id,omitempty" json:"external_id,omitempty" mod:"trim,escape"`
 }
 
 // WebSocketConnectionParams defines parameters for WebSocketConnection.
 type WebSocketConnectionParams struct {
 	// Events Comma-separated list of events to subscribe to via WebSocket
-	Events WSEventsQuery `binding:"required" form:"events,omitempty" json:"events,omitempty"`
+	Events WSEventsQuery `binding:"required" form:"events,omitempty" json:"events,omitempty" mod:"trim,escape"`
 
 	// Options Additional WebSocket connection parameters (include_mass_communication — allow receiving events for messages sent via mass mailing actions)
-	Options WSOptionsQuery `binding:"omitempty" form:"options,omitempty" json:"options,omitempty"`
+	Options WSOptionsQuery `binding:"omitempty" form:"options,omitempty" json:"options,omitempty" mod:"trim,escape"`
 }
 
 // CreateDialogJSONRequestBody defines body for CreateDialog for application/json ContentType.
