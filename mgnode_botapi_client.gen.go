@@ -153,6 +153,7 @@ const (
 	ChannelTypeOzon          ChannelType = "ozon"
 	ChannelTypeSkype         ChannelType = "skype"
 	ChannelTypeTelegram      ChannelType = "telegram"
+	ChannelTypeTiktok        ChannelType = "tiktok"
 	ChannelTypeViber         ChannelType = "viber"
 	ChannelTypeVk            ChannelType = "vk"
 	ChannelTypeWhatsapp      ChannelType = "whatsapp"
@@ -177,6 +178,7 @@ func (ChannelType) EnumValues() []string {
 		string(ChannelTypeOzon),
 		string(ChannelTypeSkype),
 		string(ChannelTypeTelegram),
+		string(ChannelTypeTiktok),
 		string(ChannelTypeViber),
 		string(ChannelTypeVk),
 		string(ChannelTypeWhatsapp),
@@ -378,6 +380,7 @@ func (v *ColorCode) UnmarshalJSON(data []byte) error {
 const (
 	CustomerExternalIDAny   CustomerExternalID = "any"
 	CustomerExternalIDPhone CustomerExternalID = "phone"
+	CustomerExternalIDUid   CustomerExternalID = "uid"
 )
 
 // EnumValues returns all valid values for CustomerExternalID.
@@ -385,6 +388,7 @@ func (CustomerExternalID) EnumValues() []string {
 	return []string{
 		string(CustomerExternalIDAny),
 		string(CustomerExternalIDPhone),
+		string(CustomerExternalIDUid),
 	}
 }
 
@@ -1450,6 +1454,9 @@ type ChannelSettings struct {
 	// CustomerExternalID Support for external customer identifiers
 	CustomerExternalID CustomerExternalID `json:"customer_external_id,omitempty"`
 
+	// DeferredPhoneTemplateSend Send phone template messages through deferred identity resolution
+	DeferredPhoneTemplateSend bool `json:"deferred_phone_template_send,omitempty"`
+
 	// File File messages support
 	File FileMessageSetting `json:"file,omitempty"`
 
@@ -1490,6 +1497,7 @@ type ChannelType string
 // Chat Represents a communication thread between users and/or a customer within a specific channel
 type Chat struct {
 	// AuthorID ID of the user who initiated the chat
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	AuthorID *int64 `json:"author_id,omitempty"`
 
 	// Avatar URL of the chat's avatar image
@@ -1550,6 +1558,7 @@ type ChatMemberListResponseItem struct {
 	ID int64 `json:"id"`
 
 	// IsAuthor Indicates whether the user is the author of the chat
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	IsAuthor bool `json:"is_author"`
 
 	// State Membership state of the user in the chat
@@ -1577,6 +1586,7 @@ type ChatTimestamps struct {
 // ChatsListResponseItem defines model for ChatsListResponseItem.
 type ChatsListResponseItem struct {
 	// AuthorID ID of the user who initiated the chat
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
 	AuthorID *int64 `json:"author_id,omitempty"`
 
 	// Avatar URL of the chat's avatar image
@@ -2440,6 +2450,9 @@ type Tag struct {
 type TemplateSetting struct {
 	// Creation Support for creating templates in the system
 	Creation bool `json:"creation,omitempty"`
+
+	// Sending Support for sending templates from the system
+	Sending bool `json:"sending,omitempty"`
 }
 
 // TextMessageSetting Text messages support

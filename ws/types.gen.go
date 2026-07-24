@@ -171,7 +171,7 @@ type ChannelSchema struct {
 	TransportId int64 `json:"transport_id"`
 
 	// Description: Channel type
-	Type ChannelTypeSchema `json:"type" validate:"oneof='telegram' 'fbmessenger' 'viber' 'whatsapp' 'skype' 'vk' 'instagram' 'consultant' 'yandex_chat' 'odnoklassniki' 'max' 'ozon' 'wildberries' 'yandex_market' 'mega_market' 'avito' 'drom' 'youla' 'custom'"`
+	Type ChannelTypeSchema `json:"type" validate:"oneof='telegram' 'tiktok' 'fbmessenger' 'viber' 'whatsapp' 'skype' 'vk' 'instagram' 'consultant' 'yandex_chat' 'odnoklassniki' 'max' 'ozon' 'wildberries' 'yandex_market' 'mega_market' 'avito' 'drom' 'youla' 'custom'"`
 }
 
 // ChannelFeatureSchema is a schema from the AsyncAPI specification required in messages
@@ -1190,6 +1190,9 @@ type SuggestionsSchema struct {
 type TemplateSettingSchema struct {
 	// Description: Support for creating templates in the system
 	Creation *bool `json:"creation,omitempty"`
+
+	// Description: Support for sending templates from the system
+	Sending *bool `json:"sending,omitempty"`
 }
 
 // TextMessageSettingSchema is a schema from the AsyncAPI specification required in messages

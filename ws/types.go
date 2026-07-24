@@ -121,6 +121,7 @@ const (
 
 const (
 	ChannelTypeTelegram      ChannelTypeSchema = "telegram"
+	ChannelTypeTiktok        ChannelTypeSchema = "tiktok"
 	ChannelTypeFbmessenger   ChannelTypeSchema = "fbmessenger"
 	ChannelTypeViber         ChannelTypeSchema = "viber"
 	ChannelTypeWhatsapp      ChannelTypeSchema = "whatsapp"
