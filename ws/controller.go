@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"github.com/lerenn/asyncapi-codegen/pkg/extensions"
+	bot_api_client "github.com/retailcrm/bot-api-client-go"
 	"net/http"
 )
 
@@ -21,6 +22,7 @@ func NewController(url, token string, options ...Option) (*AppController, error)
 		url: url,
 		headers: http.Header{
 			"X-Bot-Token": []string{token},
+			"User-Agent":  []string{bot_api_client.DefaultUserAgent()},
 		},
 		options: make([]ControllerOption, 0),
 	}
@@ -37,6 +39,16 @@ func NewController(url, token string, options ...Option) (*AppController, error)
 	}
 
 	return appController, nil
+}
+
+func WithUserAgent(userAgent string) Option {
+	return func(controller *Controller) error {
+		if userAgent != "" {
+			controller.headers.Set("User-Agent", userAgent)
+		}
+
+		return nil
+	}
 }
 
 func (c Controller) Publish(ctx context.Context, channel string, mw extensions.BrokerMessage) error {
