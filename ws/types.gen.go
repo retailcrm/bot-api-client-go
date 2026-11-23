@@ -378,6 +378,15 @@ type DialogEventSchema struct {
 	Utm *UtmSchema `json:"utm,omitempty"`
 }
 
+// DialogOpenedDataSchema is a schema from the AsyncAPI specification required in messages
+// Description: Dialog opening data
+type DialogOpenedDataSchema struct {
+	Dialog DialogEventSchema `json:"dialog"`
+
+	// Description: Last public manager message outside a dialog, after the previous closed dialog and before this dialog.
+	PrecedingMessage *PrecedingMessageSchema `json:"preceding_message,omitempty"`
+}
+
 // EventSchema is a schema from the AsyncAPI specification required in messages
 // Description: Event
 type EventSchema struct {
@@ -388,7 +397,7 @@ type EventSchema struct {
 	Meta MetaSchema `json:"meta"`
 
 	// Description: Event type defining the structure of the data field
-	Type EventTypeSchema `json:"type" validate:"oneof='message_new' 'message_updated' 'message_deleted' 'message_restored' 'chat_created' 'chat_updated' 'chats_deleted' 'dialog_opened' 'dialog_assign' 'dialog_closed' 'user_online_updated' 'user_joined_chat' 'user_left_chat' 'user_updated' 'customer_updated' 'bot_updated' 'channel_updated'"`
+	Type EventTypeSchema `json:"type" validate:"oneof='message_new' 'message_updated' 'file_updated' 'message_deleted' 'message_restored' 'chat_created' 'chat_updated' 'chats_deleted' 'dialog_opened' 'dialog_assign' 'dialog_closed' 'user_online_updated' 'user_joined_chat' 'user_left_chat' 'user_updated' 'customer_updated' 'bot_updated' 'channel_updated'"`
 }
 
 // DataPropertyFromEventSchema is a schema from the AsyncAPI specification required in messages
@@ -462,9 +471,17 @@ type EventDialogClosedSchema struct {
 // EventDialogOpenedSchema is a schema from the AsyncAPI specification required in messages
 // Description: Dialog opening event
 type EventDialogOpenedSchema struct {
-	// Description: Dialog data
-	Data DialogDataSchema `json:"data"`
-	Type string           `json:"type" validate:"oneof='dialog_opened'"`
+	// Description: Dialog opening data
+	Data DialogOpenedDataSchema `json:"data"`
+	Type string                 `json:"type" validate:"oneof='dialog_opened'"`
+}
+
+// EventFileUpdatedSchema is a schema from the AsyncAPI specification required in messages
+// Description: File update event
+type EventFileUpdatedSchema struct {
+	// Description: Updated file data
+	Data FileUpdatedDataSchema `json:"data"`
+	Type string                `json:"type" validate:"oneof='file_updated'"`
 }
 
 // EventMessageDeletedSchema is a schema from the AsyncAPI specification required in messages
@@ -535,6 +552,19 @@ type EventUserUpdatedSchema struct {
 	Type string                `json:"type" validate:"oneof='user_updated'"`
 }
 
+// FileSchema is a schema from the AsyncAPI specification required in messages
+// Description: File information
+type FileSchema struct {
+	// Description: File UUID
+	Id UUID `json:"id"`
+
+	// Description: File transcription
+	Transcription *string `json:"transcription,omitempty"`
+
+	// Description: File transcription status
+	TranscriptionStatus *FileTranscriptionStatusSchema `json:"transcription_status,omitempty" validate:"omitempty,oneof='in_progress' 'ready' 'error'"`
+}
+
 // FileMessageSettingSchema is a schema from the AsyncAPI specification required in messages
 // Description: File message support
 type FileMessageSettingSchema struct {
@@ -561,6 +591,17 @@ type FileMessageSettingSchema struct {
 
 	// Description: Support for operations with messages of this type
 	Reaction *ChannelFeatureSchema `json:"reaction,omitempty" validate:"omitempty,oneof='none' 'receive' 'send' 'both'"`
+}
+
+// FileTranscriptionStatusSchema is a schema from the AsyncAPI specification required in messages
+// Description: File transcription status
+type FileTranscriptionStatusSchema string
+
+// FileUpdatedDataSchema is a schema from the AsyncAPI specification required in messages
+// Description: Updated file data
+type FileUpdatedDataSchema struct {
+	// Description: File information
+	File FileSchema `json:"file"`
 }
 
 // ImageMessageSettingSchema is a schema from the AsyncAPI specification required in messages
@@ -643,6 +684,9 @@ type MessageSchema struct {
 	// Description: Message attachments
 	Items []MessageFileSchema `json:"items,omitempty"`
 
+	// Description: Persistent metadata of the message
+	Meta *MessageMetaSchema `json:"meta,omitempty"`
+
 	// Description: Annotation to media data (for media messages)
 	Note *string `json:"note,omitempty"`
 
@@ -695,6 +739,16 @@ type MessageAdditionalSchema struct {
 	TemplateCode *string `json:"template_code,omitempty"`
 }
 
+// MessageCommandMetaSchema is a schema from the AsyncAPI specification required in messages
+// Description: Bot command recipient and code
+type MessageCommandMetaSchema struct {
+	// Description: Recipient bot identifier
+	BotId int64 `json:"bot_id"`
+
+	// Description: Bot-defined command code
+	Code string `json:"code"`
+}
+
 // MessageDataSchema is a schema from the AsyncAPI specification required in messages
 // Description: Message data
 type MessageDataSchema struct {
@@ -740,6 +794,9 @@ type MessagePropertyFromMessageDataSchema struct {
 
 	// Description: Message attachments
 	Items []MessageFileSchema `json:"items,omitempty"`
+
+	// Description: Persistent metadata of the message
+	Meta *MessageMetaSchema `json:"meta,omitempty"`
 
 	// Description: Annotation to media data (for media messages)
 	Note *string `json:"note,omitempty"`
@@ -789,7 +846,7 @@ type MessageDialogSchema struct {
 // Description: Message error information
 type MessageErrorSchema struct {
 	// Description: Error code
-	Code *MessageErrorCodeSchema `json:"code,omitempty" validate:"omitempty,oneof='unknown' 'network_error' 'malformed_response' 'async_send_timeout' 'general' 'customer_not_exists' 'reply_timed_out' 'spam_suspicion' 'access_restricted'"`
+	Code *MessageErrorCodeSchema `json:"code,omitempty" validate:"omitempty,oneof='unknown' 'network_error' 'malformed_response' 'async_send_timeout' 'general' 'customer_not_exists' 'reply_timed_out' 'spam_suspicion' 'access_restricted' 'insufficient_balance'"`
 
 	// Description: Text description of the error
 	Message *string `json:"message,omitempty"`
@@ -845,6 +902,13 @@ type MessageFileKindSchema string
 type MessageIDSchema struct {
 	// Description: Message ID
 	Id int64 `json:"id"`
+}
+
+// MessageMetaSchema is a schema from the AsyncAPI specification required in messages
+// Description: Persistent metadata of the message
+type MessageMetaSchema struct {
+	// Description: Bot command recipient and code
+	Command *MessageCommandMetaSchema `json:"command,omitempty"`
 }
 
 // MessageOrderSchema is a schema from the AsyncAPI specification required in messages
@@ -1061,6 +1125,18 @@ type OrderMessageSettingSchema struct {
 	Reaction *ChannelFeatureSchema `json:"reaction,omitempty" validate:"omitempty,oneof='none' 'receive' 'send' 'both'"`
 }
 
+// OutgoingBlockReasonSchema is a schema from the AsyncAPI specification required in messages
+// Description: Reason why all external outgoing actions are blocked
+type OutgoingBlockReasonSchema string
+
+// PrecedingMessageSchema is a schema from the AsyncAPI specification required in messages
+// Description: Last public manager message outside a dialog, after the previous closed dialog and before this dialog.
+type PrecedingMessageSchema struct {
+	AuthorId  int64     `json:"author_id"`
+	CreatedAt time.Time `json:"created_at"`
+	MessageId int64     `json:"message_id"`
+}
+
 // ProductMessageSettingSchema is a schema from the AsyncAPI specification required in messages
 // Description: Product message support
 type ProductMessageSettingSchema struct {
@@ -1126,8 +1202,11 @@ type SendingPolicySchema struct {
 	// Description: Message types for sending to a new customer
 	NewCustomer *SendingPolicyNewCustomerSchema `json:"new_customer,omitempty"`
 
-	// Description: Outgoing messages support
-	Outgoing *SendingPolicyOutgoingSchema `json:"outgoing,omitempty" validate:"omitempty,oneof='allowed' 'restricted'"`
+	// Description: Outgoing action policy: `allowed` permits all outgoing actions supported by the channel and makes the channel available for outgoing mailings, scenarios and triggers; `restricted` excludes the channel from outgoing mailings, scenarios and triggers while independently enabled initial text and template sending remain available and other sending methods are not blocked; `blocked` prevents all external outgoing actions, including sending, editing and deleting messages, reactions and outgoing read receipts, while incoming and internal messages remain available.
+	Outgoing *SendingPolicyOutgoingSchema `json:"outgoing,omitempty" validate:"omitempty,oneof='allowed' 'restricted' 'blocked'"`
+
+	// Description: Reason why all external outgoing actions are blocked
+	OutgoingBlockReason *OutgoingBlockReasonSchema `json:"outgoing_block_reason,omitempty" validate:"omitempty,oneof='insufficient_balance'"`
 }
 
 // SendingPolicyAfterReplyTimeoutSchema is a schema from the AsyncAPI specification required in messages
@@ -1139,7 +1218,7 @@ type SendingPolicyAfterReplyTimeoutSchema string
 type SendingPolicyNewCustomerSchema string
 
 // SendingPolicyOutgoingSchema is a schema from the AsyncAPI specification required in messages
-// Description: Outgoing messages support
+// Description: Outgoing action policy: `allowed` permits all outgoing actions supported by the channel and makes the channel available for outgoing mailings, scenarios and triggers; `restricted` excludes the channel from outgoing mailings, scenarios and triggers while independently enabled initial text and template sending remain available and other sending methods are not blocked; `blocked` prevents all external outgoing actions, including sending, editing and deleting messages, reactions and outgoing read receipts, while incoming and internal messages remain available.
 type SendingPolicyOutgoingSchema string
 
 // StatusSettingSchema is a schema from the AsyncAPI specification required in messages
@@ -1162,7 +1241,7 @@ type SuggestionSchema struct {
 	Title *string `json:"title,omitempty"`
 
 	// Description: Quick reply type
-	Type *SuggestionTypeSchema `json:"type,omitempty" validate:"omitempty,oneof='text' 'email' 'phone' 'url'"`
+	Type *SuggestionTypeSchema `json:"type,omitempty" validate:"omitempty,oneof='text' 'email' 'phone' 'url' 'request_contact_info'"`
 }
 
 // SuggestionTypeSchema is a schema from the AsyncAPI specification required in messages
@@ -1177,6 +1256,9 @@ type SuggestionsSchema struct {
 
 	// Description: Support for operations with messages of this type
 	Phone *ChannelFeatureSchema `json:"phone,omitempty" validate:"omitempty,oneof='none' 'receive' 'send' 'both'"`
+
+	// Description: Support for operations with messages of this type
+	RequestContactInfo *ChannelFeatureSchema `json:"request_contact_info,omitempty" validate:"omitempty,oneof='none' 'receive' 'send' 'both'"`
 
 	// Description: Support for operations with messages of this type
 	Text *ChannelFeatureSchema `json:"text,omitempty" validate:"omitempty,oneof='none' 'receive' 'send' 'both'"`

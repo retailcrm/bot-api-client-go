@@ -253,13 +253,16 @@ func TestHeaderRateLimiter(t *testing.T) {
 	})
 
 	t.Run("keeps throughput with concurrent requests", func(t *testing.T) {
+		const requestLimit = 100
+		const requests = requestLimit - 1
+		reset := strconv.FormatInt(time.Now().Add(time.Minute).Unix(), 10)
 		dataProvider := []int{1, 5, 20, 50}
 		for _, concurrency := range dataProvider {
 			t.Run(strconv.Itoa(concurrency), func(t *testing.T) {
 				server := httptest.NewServer(http.HandlerFunc(func(response http.ResponseWriter, _ *http.Request) {
-					response.Header().Set("X-RateLimit-Limit", "100")
-					response.Header().Set("X-RateLimit-Remaining", "99")
-					response.Header().Set("X-RateLimit-Reset", strconv.FormatInt(time.Now().Add(time.Second).Unix(), 10))
+					response.Header().Set("X-RateLimit-Limit", strconv.Itoa(requestLimit))
+					response.Header().Set("X-RateLimit-Remaining", strconv.Itoa(requests))
+					response.Header().Set("X-RateLimit-Reset", reset)
 				}))
 				defer server.Close()
 
@@ -270,7 +273,6 @@ func TestHeaderRateLimiter(t *testing.T) {
 				require.NoError(t, err)
 				require.NoError(t, warmupResponse.Body.Close())
 
-				const requests = 150
 				var next atomic.Int64
 				requestErrors := make(chan error, requests)
 				startedAt := time.Now()

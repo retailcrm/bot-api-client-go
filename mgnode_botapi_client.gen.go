@@ -491,6 +491,49 @@ func (v *FileType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Defines values for HintSuggestionType.
+const (
+	HintSuggestionTypeAudio   HintSuggestionType = "audio"
+	HintSuggestionTypeFile    HintSuggestionType = "file"
+	HintSuggestionTypeImage   HintSuggestionType = "image"
+	HintSuggestionTypeOrder   HintSuggestionType = "order"
+	HintSuggestionTypeProduct HintSuggestionType = "product"
+	HintSuggestionTypeText    HintSuggestionType = "text"
+)
+
+// EnumValues returns all valid values for HintSuggestionType.
+func (HintSuggestionType) EnumValues() []string {
+	return []string{
+		string(HintSuggestionTypeAudio),
+		string(HintSuggestionTypeFile),
+		string(HintSuggestionTypeImage),
+		string(HintSuggestionTypeOrder),
+		string(HintSuggestionTypeProduct),
+		string(HintSuggestionTypeText),
+	}
+}
+
+// Validate validates the value of HintSuggestionType.
+func (v HintSuggestionType) ValidateEnum() error {
+	for _, value := range v.EnumValues() {
+		if string(v) == value {
+			return nil
+		}
+	}
+	return fmt.Errorf("invalid value for HintSuggestionType: %v", v)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for HintSuggestionType.
+func (v *HintSuggestionType) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return &json.UnmarshalTypeError{Value: err.Error()}
+	}
+
+	*v = HintSuggestionType(s)
+	return nil
+}
+
 // Defines values for MarkupFormat.
 const (
 	MarkupFormatBlockMonospace  MarkupFormat = "block_monospace"
@@ -575,15 +618,16 @@ func (v *MessageAction) UnmarshalJSON(data []byte) error {
 
 // Defines values for MessageErrorCode.
 const (
-	MessageErrorCodeAccessRestricted  MessageErrorCode = "access_restricted"
-	MessageErrorCodeAsyncSendTimeout  MessageErrorCode = "async_send_timeout"
-	MessageErrorCodeCustomerNotExists MessageErrorCode = "customer_not_exists"
-	MessageErrorCodeGeneral           MessageErrorCode = "general"
-	MessageErrorCodeMalformedResponse MessageErrorCode = "malformed_response"
-	MessageErrorCodeNetworkError      MessageErrorCode = "network_error"
-	MessageErrorCodeReplyTimedOut     MessageErrorCode = "reply_timed_out"
-	MessageErrorCodeSpamSuspicion     MessageErrorCode = "spam_suspicion"
-	MessageErrorCodeUnknown           MessageErrorCode = "unknown"
+	MessageErrorCodeAccessRestricted    MessageErrorCode = "access_restricted"
+	MessageErrorCodeAsyncSendTimeout    MessageErrorCode = "async_send_timeout"
+	MessageErrorCodeCustomerNotExists   MessageErrorCode = "customer_not_exists"
+	MessageErrorCodeGeneral             MessageErrorCode = "general"
+	MessageErrorCodeInsufficientBalance MessageErrorCode = "insufficient_balance"
+	MessageErrorCodeMalformedResponse   MessageErrorCode = "malformed_response"
+	MessageErrorCodeNetworkError        MessageErrorCode = "network_error"
+	MessageErrorCodeReplyTimedOut       MessageErrorCode = "reply_timed_out"
+	MessageErrorCodeSpamSuspicion       MessageErrorCode = "spam_suspicion"
+	MessageErrorCodeUnknown             MessageErrorCode = "unknown"
 )
 
 // EnumValues returns all valid values for MessageErrorCode.
@@ -593,6 +637,7 @@ func (MessageErrorCode) EnumValues() []string {
 		string(MessageErrorCodeAsyncSendTimeout),
 		string(MessageErrorCodeCustomerNotExists),
 		string(MessageErrorCodeGeneral),
+		string(MessageErrorCodeInsufficientBalance),
 		string(MessageErrorCodeMalformedResponse),
 		string(MessageErrorCodeNetworkError),
 		string(MessageErrorCodeReplyTimedOut),
@@ -792,6 +837,39 @@ func (v *MessageType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Defines values for OutgoingBlockReason.
+const (
+	OutgoingBlockReasonInsufficientBalance OutgoingBlockReason = "insufficient_balance"
+)
+
+// EnumValues returns all valid values for OutgoingBlockReason.
+func (OutgoingBlockReason) EnumValues() []string {
+	return []string{
+		string(OutgoingBlockReasonInsufficientBalance),
+	}
+}
+
+// Validate validates the value of OutgoingBlockReason.
+func (v OutgoingBlockReason) ValidateEnum() error {
+	for _, value := range v.EnumValues() {
+		if string(v) == value {
+			return nil
+		}
+	}
+	return fmt.Errorf("invalid value for OutgoingBlockReason: %v", v)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for OutgoingBlockReason.
+func (v *OutgoingBlockReason) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return &json.UnmarshalTypeError{Value: err.Error()}
+	}
+
+	*v = OutgoingBlockReason(s)
+	return nil
+}
+
 // Defines values for ResponsibleType.
 const (
 	ResponsibleTypeBot  ResponsibleType = "bot"
@@ -939,6 +1017,7 @@ func (v *SendingPolicyNewCustomer) UnmarshalJSON(data []byte) error {
 // Defines values for SendingPolicyOutgoing.
 const (
 	SendingPolicyOutgoingAllowed    SendingPolicyOutgoing = "allowed"
+	SendingPolicyOutgoingBlocked    SendingPolicyOutgoing = "blocked"
 	SendingPolicyOutgoingRestricted SendingPolicyOutgoing = "restricted"
 )
 
@@ -946,6 +1025,7 @@ const (
 func (SendingPolicyOutgoing) EnumValues() []string {
 	return []string{
 		string(SendingPolicyOutgoingAllowed),
+		string(SendingPolicyOutgoingBlocked),
 		string(SendingPolicyOutgoingRestricted),
 	}
 }
@@ -971,12 +1051,50 @@ func (v *SendingPolicyOutgoing) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Defines values for SetHintsRequestBodyStatus.
+const (
+	SetHintsRequestBodyStatusCancelled  SetHintsRequestBodyStatus = "cancelled"
+	SetHintsRequestBodyStatusProcessing SetHintsRequestBodyStatus = "processing"
+	SetHintsRequestBodyStatusReady      SetHintsRequestBodyStatus = "ready"
+)
+
+// EnumValues returns all valid values for SetHintsRequestBodyStatus.
+func (SetHintsRequestBodyStatus) EnumValues() []string {
+	return []string{
+		string(SetHintsRequestBodyStatusCancelled),
+		string(SetHintsRequestBodyStatusProcessing),
+		string(SetHintsRequestBodyStatusReady),
+	}
+}
+
+// Validate validates the value of SetHintsRequestBodyStatus.
+func (v SetHintsRequestBodyStatus) ValidateEnum() error {
+	for _, value := range v.EnumValues() {
+		if string(v) == value {
+			return nil
+		}
+	}
+	return fmt.Errorf("invalid value for SetHintsRequestBodyStatus: %v", v)
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface for SetHintsRequestBodyStatus.
+func (v *SetHintsRequestBodyStatus) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return &json.UnmarshalTypeError{Value: err.Error()}
+	}
+
+	*v = SetHintsRequestBodyStatus(s)
+	return nil
+}
+
 // Defines values for SuggestionType.
 const (
-	SuggestionTypeEmail SuggestionType = "email"
-	SuggestionTypePhone SuggestionType = "phone"
-	SuggestionTypeText  SuggestionType = "text"
-	SuggestionTypeUrl   SuggestionType = "url"
+	SuggestionTypeEmail              SuggestionType = "email"
+	SuggestionTypePhone              SuggestionType = "phone"
+	SuggestionTypeRequestContactInfo SuggestionType = "request_contact_info"
+	SuggestionTypeText               SuggestionType = "text"
+	SuggestionTypeUrl                SuggestionType = "url"
 )
 
 // EnumValues returns all valid values for SuggestionType.
@@ -984,6 +1102,7 @@ func (SuggestionType) EnumValues() []string {
 	return []string{
 		string(SuggestionTypeEmail),
 		string(SuggestionTypePhone),
+		string(SuggestionTypeRequestContactInfo),
 		string(SuggestionTypeText),
 		string(SuggestionTypeUrl),
 	}
@@ -1856,6 +1975,45 @@ type FileWithUrl struct {
 	Url string `binding:"omitempty,Url" json:"url"`
 }
 
+// HintCommand Temporary command offered by this bot
+type HintCommand struct {
+	// Code Bot-defined command code
+	Code string `binding:"required" json:"code"`
+
+	// Name Human-readable command name
+	Name string `binding:"required" json:"name"`
+}
+
+// HintSuggestion Standalone suggested client message
+type HintSuggestion struct {
+	// Content Message text content (required for text messages only)
+	Content *string `binding:"required_if=Type text,omitempty,min=1" json:"content,omitempty" mod:"trim,escape"`
+
+	// Items File attachments (required for file, audio and image messages)
+	Items *[]struct {
+		// Caption Caption for the file
+		Caption string `binding:"omitempty,max=1024" json:"caption" mod:"trim,escape"`
+
+		// ID Unique identifier of the file
+		ID openapi_types.UUID `binding:"required" json:"id"`
+	} `binding:"required_if=Type image,required_if=Type file,required_if=Type audio,omitempty,min=1,dive" json:"items,omitempty"`
+
+	// Note Note or description for the file (required for file, audio and image messages)
+	Note *string `json:"note,omitempty" mod:"trim,escape"`
+
+	// Order Order data (required for order messages only)
+	Order *MessageOrder `binding:"required_if=Type order" json:"order,omitempty"`
+
+	// Product Product data (required for product messages only)
+	Product *MessageProduct `binding:"required_if=Type product" json:"product,omitempty"`
+
+	// Type Suggested message type, defaults to text
+	Type *HintSuggestionType `binding:"omitempty,oneof=text image file audio product order" json:"type,omitempty"`
+}
+
+// HintSuggestionType Suggested message type, defaults to text
+type HintSuggestionType string
+
 // Histogram Sound diagram (for audio type messages only)
 type Histogram = []int
 
@@ -1930,6 +2088,9 @@ type Message struct {
 	// Items List of attached files
 	Items []MessageFile `json:"items,omitempty"`
 
+	// Meta Persistent metadata of the message
+	Meta *MessageMeta `json:"meta,omitempty"`
+
 	// Note Optional internal note or comment for the message
 	Note string `json:"note"`
 
@@ -1969,6 +2130,15 @@ type Message struct {
 
 // MessageAction Defines possible actions that can be performed on a message
 type MessageAction string
+
+// MessageCommandMeta Bot command recipient and code
+type MessageCommandMeta struct {
+	// BotID Recipient bot identifier
+	BotID int64 `json:"bot_id"`
+
+	// Code Bot-defined command code
+	Code string `json:"code"`
+}
 
 // MessageDialog Message dialog
 type MessageDialog struct {
@@ -2063,6 +2233,9 @@ type MessageListResponseItem struct {
 	// Items List of attached files
 	Items []MessageFile `json:"items,omitempty"`
 
+	// Meta Persistent metadata of the message
+	Meta *MessageMeta `json:"meta,omitempty"`
+
 	// Note Optional internal note or comment for the message
 	Note string `json:"note"`
 
@@ -2101,6 +2274,12 @@ type MessageListResponseItem struct {
 
 	// User User associated with the message
 	User *Actor `json:"user"`
+}
+
+// MessageMeta Persistent metadata of the message
+type MessageMeta struct {
+	// Command Bot command recipient and code
+	Command *MessageCommandMeta `json:"command,omitempty"`
 }
 
 // MessageOrder Represents the details of an order within a message
@@ -2257,6 +2436,9 @@ type OrderMessageSetting struct {
 	Reaction ChannelFeature `json:"reaction,omitempty"`
 }
 
+// OutgoingBlockReason Reason why all external outgoing actions are blocked
+type OutgoingBlockReason string
+
 // ProductMessageSetting Product messages support
 type ProductMessageSetting struct {
 	// Creating Support for operation with messages of the given type
@@ -2384,8 +2566,11 @@ type SendingPolicy struct {
 	// NewCustomer Types of messages to send to a new customer
 	NewCustomer SendingPolicyNewCustomer `json:"new_customer,omitempty"`
 
-	// Outgoing Outgoing message support
+	// Outgoing Outgoing action policy: `allowed` permits all outgoing actions supported by the channel and makes the channel available for outgoing mailings, scenarios and triggers; `restricted` excludes the channel from outgoing mailings, scenarios and triggers while independently enabled initial text and template sending remain available and other sending methods are not blocked; `blocked` prevents all external outgoing actions, including sending, editing and deleting messages, reactions and outgoing read receipts, while incoming and internal messages remain available.
 	Outgoing SendingPolicyOutgoing `json:"outgoing,omitempty"`
+
+	// OutgoingBlockReason Reason why all external outgoing actions are blocked
+	OutgoingBlockReason *OutgoingBlockReason `json:"outgoing_block_reason,omitempty"`
 }
 
 // SendingPolicyAfterReplyTimeout Types of messages to send after response time expires
@@ -2394,8 +2579,29 @@ type SendingPolicyAfterReplyTimeout string
 // SendingPolicyNewCustomer Types of messages to send to a new customer
 type SendingPolicyNewCustomer string
 
-// SendingPolicyOutgoing Outgoing message support
+// SendingPolicyOutgoing Outgoing action policy: `allowed` permits all outgoing actions supported by the channel and makes the channel available for outgoing mailings, scenarios and triggers; `restricted` excludes the channel from outgoing mailings, scenarios and triggers while independently enabled initial text and template sending remain available and other sending methods are not blocked; `blocked` prevents all external outgoing actions, including sending, editing and deleting messages, reactions and outgoing read receipts, while incoming and internal messages remain available.
 type SendingPolicyOutgoing string
+
+// SetHintsRequestBody Fully replaces this bot's temporary hints for a customer chat. Processing expires after five minutes; each processing request restarts the timeout. Ready requires suggestions, nonblank analysis or commands and may be published directly. Cancelled removes processing or ready state; cancellation is not stored.
+type SetHintsRequestBody struct {
+	// Analysis Plain text analysis for the manager
+	Analysis *string `json:"analysis,omitempty"`
+
+	// Commands Temporary commands with codes unique within this list
+	Commands *[]HintCommand `binding:"omitempty,unique=Code,dive" json:"commands,omitempty"`
+
+	// MessageID Last undeleted public message, excluding system messages and commands, ordered by creation time and ID
+	MessageID int64 `binding:"required,gt=0" json:"message_id"`
+
+	// Status Current hints state
+	Status SetHintsRequestBodyStatus `binding:"required,oneof=processing ready cancelled" json:"status"`
+
+	// Suggestions Alternative standalone messages. Supported types are text, image, file, audio, product and order.
+	Suggestions *[]HintSuggestion `binding:"omitempty,dive" json:"suggestions,omitempty"`
+}
+
+// SetHintsRequestBodyStatus Current hints state
+type SetHintsRequestBodyStatus string
 
 // StatusSetting Transmitting message status information
 type StatusSetting struct {
@@ -2426,6 +2632,9 @@ type Suggestions struct {
 
 	// Phone Support for operation with messages of the given type
 	Phone ChannelFeature `json:"phone,omitempty"`
+
+	// RequestContactInfo Support for operation with messages of the given type
+	RequestContactInfo ChannelFeature `json:"request_contact_info,omitempty"`
 
 	// Text Support for operation with messages of the given type
 	Text ChannelFeature `json:"text,omitempty"`
@@ -2496,7 +2705,7 @@ type UserListResponseItem struct {
 	// Avatar URL of the user's avatar
 	Avatar *string `json:"avatar_url,omitempty"`
 
-	// Connected Indicates if the user has ever connected to the system
+	// Connected Indicates if the user is currently connected to the system
 	Connected bool `json:"connected"`
 
 	// CreatedAt Date and time in RFC 3339 format with microseconds
@@ -3281,6 +3490,9 @@ type WebSocketConnectionParams struct {
 // CreateDialogJSONRequestBody defines body for CreateDialog for application/json ContentType.
 type CreateDialogJSONRequestBody CreateDialogJSONBody
 
+// SetHintsJSONRequestBody defines body for SetHints for application/json ContentType.
+type SetHintsJSONRequestBody = SetHintsRequestBody
+
 // AssignDialogResponsibleJSONRequestBody defines body for AssignDialogResponsible for application/json ContentType.
 type AssignDialogResponsibleJSONRequestBody AssignDialogResponsibleJSONBody
 
@@ -3461,6 +3673,11 @@ type ClientInterface interface {
 
 	CreateDialog(ctx context.Context, chatIDPath ChatIDPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// SetHintsWithBody request with any body
+	SetHintsWithBody(ctx context.Context, chatIDPath ChatIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	SetHints(ctx context.Context, chatIDPath ChatIDPath, body SetHintsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// ListCustomers request
 	ListCustomers(ctx context.Context, params *ListCustomersParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -3596,6 +3813,30 @@ func (c *Client) CreateDialogWithBody(ctx context.Context, chatIDPath ChatIDPath
 
 func (c *Client) CreateDialog(ctx context.Context, chatIDPath ChatIDPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateDialogRequest(c.Server, chatIDPath, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SetHintsWithBody(ctx context.Context, chatIDPath ChatIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSetHintsRequestWithBody(c.Server, chatIDPath, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) SetHints(ctx context.Context, chatIDPath ChatIDPath, body SetHintsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewSetHintsRequest(c.Server, chatIDPath, body)
 	if err != nil {
 		return nil, err
 	}
@@ -4563,6 +4804,53 @@ func NewCreateDialogRequestWithBody(server string, chatIDPath ChatIDPath, conten
 	}
 
 	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewSetHintsRequest calls the generic SetHints builder with application/json body
+func NewSetHintsRequest(server string, chatIDPath ChatIDPath, body SetHintsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewSetHintsRequestWithBody(server, chatIDPath, "application/json", bodyReader)
+}
+
+// NewSetHintsRequestWithBody generates requests for SetHints with any type of body
+func NewSetHintsRequestWithBody(server string, chatIDPath ChatIDPath, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "chat_id", runtime.ParamLocationPath, chatIDPath)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/chats/%s/hints", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
 	if err != nil {
 		return nil, err
 	}
@@ -6477,6 +6765,11 @@ type ClientWithResponsesInterface interface {
 
 	CreateDialogWithResponse(ctx context.Context, chatIDPath ChatIDPath, body CreateDialogJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateDialogResp, error)
 
+	// SetHintsWithBodyWithResponse request with any body
+	SetHintsWithBodyWithResponse(ctx context.Context, chatIDPath ChatIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SetHintsResp, error)
+
+	SetHintsWithResponse(ctx context.Context, chatIDPath ChatIDPath, body SetHintsJSONRequestBody, reqEditors ...RequestEditorFn) (*SetHintsResp, error)
+
 	// ListCustomersWithResponse request
 	ListCustomersWithResponse(ctx context.Context, params *ListCustomersParams, reqEditors ...RequestEditorFn) (*ListCustomersResp, error)
 
@@ -6648,6 +6941,32 @@ func (r CreateDialogResp) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r CreateDialogResp) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type SetHintsResp struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EmptyResponse
+	JSON400      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSONDefault  *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r SetHintsResp) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r SetHintsResp) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -7204,6 +7523,23 @@ func (c *ClientWithResponses) CreateDialogWithResponse(ctx context.Context, chat
 	return ParseCreateDialogResp(rsp)
 }
 
+// SetHintsWithBodyWithResponse request with arbitrary body returning *SetHintsResp
+func (c *ClientWithResponses) SetHintsWithBodyWithResponse(ctx context.Context, chatIDPath ChatIDPath, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*SetHintsResp, error) {
+	rsp, err := c.SetHintsWithBody(ctx, chatIDPath, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSetHintsResp(rsp)
+}
+
+func (c *ClientWithResponses) SetHintsWithResponse(ctx context.Context, chatIDPath ChatIDPath, body SetHintsJSONRequestBody, reqEditors ...RequestEditorFn) (*SetHintsResp, error) {
+	rsp, err := c.SetHints(ctx, chatIDPath, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseSetHintsResp(rsp)
+}
+
 // ListCustomersWithResponse request returning *ListCustomersResp
 func (c *ClientWithResponses) ListCustomersWithResponse(ctx context.Context, params *ListCustomersParams, reqEditors ...RequestEditorFn) (*ListCustomersResp, error) {
 	rsp, err := c.ListCustomers(ctx, params, reqEditors...)
@@ -7593,6 +7929,60 @@ func ParseCreateDialogResp(rsp *http.Response) (*CreateDialogResp, error) {
 			return nil, err
 		}
 		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSONDefault = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseSetHintsResp parses an HTTP response from a SetHintsWithResponse call
+func ParseSetHintsResp(rsp *http.Response) (*SetHintsResp, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &SetHintsResp{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EmptyResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && true:
 		var dest ErrorResponse

@@ -11,6 +11,7 @@ type UUID = guuid.UUID
 const (
 	EventTypeMessageNew        EventTypeSchema = "message_new"
 	EventTypeMessageUpdated    EventTypeSchema = "message_updated"
+	EventTypeFileUpdated       EventTypeSchema = "file_updated"
 	EventTypeMessageDeleted    EventTypeSchema = "message_deleted"
 	EventTypeMessageRestored   EventTypeSchema = "message_restored"
 	EventTypeChatCrated        EventTypeSchema = "chat_created"
@@ -113,10 +114,11 @@ const (
 )
 
 const (
-	SuggestionTypeText  SuggestionTypeSchema = "text"
-	SuggestionTypeEmail SuggestionTypeSchema = "email"
-	SuggestionTypePhone SuggestionTypeSchema = "phone"
-	SuggestionTypeURL   SuggestionTypeSchema = "url"
+	SuggestionTypeText               SuggestionTypeSchema = "text"
+	SuggestionTypeEmail              SuggestionTypeSchema = "email"
+	SuggestionTypePhone              SuggestionTypeSchema = "phone"
+	SuggestionTypeURL                SuggestionTypeSchema = "url"
+	SuggestionTypeRequestContactInfo SuggestionTypeSchema = "request_contact_info"
 )
 
 const (
@@ -219,6 +221,13 @@ func (e *EventSchema) UnmarshalJSON(data []byte) error {
 		}
 		e.Data = body
 
+	case EventTypeFileUpdated:
+		var body FileUpdatedDataSchema
+		if err := json.Unmarshal(raw.Data, &body); err != nil {
+			return fmt.Errorf("failed to unmarshal data: %w", err)
+		}
+		e.Data = body
+
 	case EventTypeChatCrated:
 		fallthrough
 	case EventTypeChatUpdated:
@@ -236,9 +245,14 @@ func (e *EventSchema) UnmarshalJSON(data []byte) error {
 		e.Data = body
 
 	case EventTypeDialogClosed:
-		fallthrough
-	case EventTypeDialogOpened:
 		var body DialogDataSchema
+		if err := json.Unmarshal(raw.Data, &body); err != nil {
+			return fmt.Errorf("failed to unmarshal data: %w", err)
+		}
+		e.Data = body
+
+	case EventTypeDialogOpened:
+		var body DialogOpenedDataSchema
 		if err := json.Unmarshal(raw.Data, &body); err != nil {
 			return fmt.Errorf("failed to unmarshal data: %w", err)
 		}
